@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des Produits{% endblock %}
+
+{% block body %}
+<h1>Liste des Produits</h1>
+
+<h2>Claviers</h2>
+{% if claviers is empty %}
+    <p>Aucun clavier disponible.</p>
+{% else %}
+    <div class="produits-container">
+        {% for clavier in claviers %}
+            <div class="produit-card">
+                <h3>{{ clavier.marque }}</h3>
+                <p>Prix : {{ clavier.prix }} €</p>
+                <p>Description : {{ clavier.description }}</p>
+                <p>Stock : {{ clavier.stock }}</p>
+                <p>Status : {{ clavier.status.value }}</p>
+                <p>Switch : {{ clavier.switch }}</p>
+                <p>Langue : {{ clavier.language }}</p>
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}
+
+<hr>
+
+<h2>Souris</h2>
+{% if souris is empty %}
+    <p>Aucune souris disponible.</p>
+{% else %}
+    <div class="produits-container">
+        {% for item in souris %}
+            <div class="produit-card">
+                <h3>{{ item.marque }}</h3>
+                <p>Prix : {{ item.prix }} €</p>
+                <p>Description : {{ item.description }}</p>
+                <p>Stock : {{ item.stock }}</p>
+                <p>Status : {{ item.status.value }}</p>
+                <p>Type : {{ item.type }}</p>
+                <p>CPI : {{ item.cpi }}</p>
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}
+{% endblock %}

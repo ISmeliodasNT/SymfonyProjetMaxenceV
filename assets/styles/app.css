@@ -1,3 +1,52 @@
 body {
     background-color: white;
 }
+
+.produits-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.produit-card {
+    width: 250px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    background: #fafafa;
+}
+
+.site-header {
+    padding: 15px 30px;
+    background-color: #1e1e2f;
+    color: white; 
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.site-title {
+    font-size: 2rem;
+    font-weight: bold;
+    margin: 0;
+    color: #ffffff;
+}
+
+.login-btn {
+    padding: 10px 20px;
+    background-color: #ffffff;
+    color: #1e1e2f;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.login-btn:hover {
+    background-color: #ddd;
+}
+

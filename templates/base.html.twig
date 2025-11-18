@@ -13,19 +13,15 @@
             {% block importmap %}{{ importmap('app') }}{% endblock %}
             {{ encore_entry_script_tags('app') }}
         {% endblock %}
+
+        {% block stylesheets %}
+            <link href="{{ asset("bootstrap.min.css") }}" rel="stylesheet">
+        {% endblock %}
     </head>
     <body>
         {% include "_header.html.twig" %}
 
-        {% block body %}
-
-            <main>
-                <h2>Hello world !</h2>
-                <p>Découvrez nos produits.</p>
-            </main>
-
-
-        {% endblock %}
+        {% block body %}{% endblock %}
 
         {% include "_footer.html.twig" %}
     </body>

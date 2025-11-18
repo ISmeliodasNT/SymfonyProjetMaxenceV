@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+
+<title>Clavier index</title>
+
+{% block body %}
+    <h1>Clavier index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Marque</th>
+                <th>Prix</th>
+                <th>Description</th>
+                <th>Stock</th>
+                <th>Status</th>
+                <th>Switch</th>
+                <th>Language</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for clavier in claviers %}
+            <tr>
+                <td>{{ clavier.id }}</td>
+                <td>{{ clavier.marque }}</td>
+                <td>{{ clavier.prix }}</td>
+                <td>{{ clavier.description }}</td>
+                <td>{{ clavier.stock }}</td>
+                <td>{{ clavier.status.value }}</td>
+                <td>{{ clavier.switch }}</td>
+                <td>{{ clavier.language }}</td>
+                <td>
+                    <a href="{{ path('app_clavier_show', {'id': clavier.id}) }}">show</a>
+                    <a href="{{ path('app_clavier_edit', {'id': clavier.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="9">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_clavier_new') }}">Create new</a>
+{% endblock %}

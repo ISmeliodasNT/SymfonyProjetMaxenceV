@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+
+<title>Souris index</title>
+
+{% block body %}
+    <h1>Souris index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Marque</th>
+                <th>Prix</th>
+                <th>Description</th>
+                <th>Stock</th>
+                <th>Status</th>
+                <th>Connectivite</th>
+                <th>NbBoutons</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for souri in souris %}
+            <tr>
+                <td>{{ souri.id }}</td>
+                <td>{{ souri.marque }}</td>
+                <td>{{ souri.prix }}</td>
+                <td>{{ souri.description }}</td>
+                <td>{{ souri.stock }}</td>
+                <td>{{ souri.status }}</td>
+                <td>{{ souri.connectivite }}</td>
+                <td>{{ souri.NbBoutons }}</td>
+                <td>
+                    <a href="{{ path('app_souris_show', {'id': souri.id}) }}">show</a>
+                    <a href="{{ path('app_souris_edit', {'id': souri.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="9">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_souris_new') }}">Create new</a>
+{% endblock %}

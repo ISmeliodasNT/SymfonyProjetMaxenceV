@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+
+<title>Edit Clavier</title>
+
+{% block body %}
+    <h1>Edit Clavier</h1>
+
+    {{ include('clavier/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_clavier_index') }}">back to list</a>
+
+    {{ include('clavier/_delete_form.html.twig') }}
+{% endblock %}

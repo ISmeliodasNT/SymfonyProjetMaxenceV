@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+
+<title>New Clavier</title>
+
+{% block body %}
+    <h1>Create new Clavier</h1>
+
+    {{ include('clavier/_form.html.twig') }}
+
+    <a href="{{ path('app_clavier_index') }}">back to list</a>
+{% endblock %}
