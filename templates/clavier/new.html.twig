@@ -1,11 +1,11 @@
-<!DOCTYPE html>
+{% extends 'base.html.twig' %}
 
-<title>New Clavier</title>
+{% block title %}Nouveau Clavier{% endblock %}
 
 {% block body %}
     <h1>Create new Clavier</h1>
 
     {{ include('clavier/_form.html.twig') }}
 
-    <a href="{{ path('app_clavier_index') }}">back to list</a>
+    <a href="{{ path('app_clavier_index') }}">retour</a>
 {% endblock %}

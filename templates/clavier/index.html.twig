@@ -1,6 +1,6 @@
-<!DOCTYPE html>
+{% extends 'base.html.twig' %}
 
-<title>Clavier index</title>
+{% block title %}Clavier index{% endblock %}
 
 {% block body %}
     <h1>Clavier index</h1>
@@ -31,8 +31,8 @@
                 <td>{{ clavier.switch }}</td>
                 <td>{{ clavier.language }}</td>
                 <td>
-                    <a href="{{ path('app_clavier_show', {'id': clavier.id}) }}">show</a>
-                    <a href="{{ path('app_clavier_edit', {'id': clavier.id}) }}">edit</a>
+                    <a href="{{ path('app_clavier_show', {'id': clavier.id}) }}">afficher</a>
+                    <a href="{{ path('app_clavier_edit', {'id': clavier.id}) }}">modifier</a>
                 </td>
             </tr>
         {% else %}
@@ -43,5 +43,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_clavier_new') }}">Create new</a>
+    <a href="{{ path('app_clavier_new') }}">Créer un nouveau clavier</a>
 {% endblock %}

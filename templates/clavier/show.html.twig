@@ -1,6 +1,6 @@
-<!DOCTYPE html>
+{% extends 'base.html.twig' %}
 
-<title>Clavier</title>
+{% block title %}Clavier{% endblock %}
 
 {% block body %}
     <h1>Clavier</h1>
@@ -29,7 +29,7 @@
             </tr>
             <tr>
                 <th>Status</th>
-                <td>{{ clavier.status }}</td>
+                <td>{{ clavier.status.value }}</td>
             </tr>
             <tr>
                 <th>Switch</th>
@@ -42,9 +42,9 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_clavier_index') }}">back to list</a>
+    <a href="{{ path('app_clavier_index') }}">retour</a>
 
-    <a href="{{ path('app_clavier_edit', {'id': clavier.id}) }}">edit</a>
+    <a href="{{ path('app_clavier_edit', {'id': clavier.id}) }}">modifier</a>
 
     {{ include('clavier/_delete_form.html.twig') }}
 {% endblock %}

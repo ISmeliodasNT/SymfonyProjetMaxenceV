@@ -5,6 +5,18 @@
         <a href="{{ path('accueil') }}">Accueil</a>
         <a href="{{ path('app_liste_produits') }}">Liste des produits</a>
 
+        <div class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
+                Catégorie
+            </a>
+
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="{{ path('app_clavier_index') }}">Claviers</a></li>
+                <li><a class="dropdown-item" href="{{ path('app_souris_index') }}">Souris</a></li>
+            </ul>
+        </div>
+
+
         <a href="{{ path('app_login') }}" class="login-btn">Connexion</a>
     </div>
 </header>
