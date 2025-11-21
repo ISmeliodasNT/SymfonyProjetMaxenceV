@@ -3,9 +3,16 @@
 <title>New Souris</title>
 
 {% block body %}
-    <h1>Create new Souris</h1>
 
-    {{ include('souris/_form.html.twig') }}
+    {% if not is_granted('ROLE_ADMIN') %}
+        <div>Vous n'avez pas accès à cette page.</div>
+    {% else %}
 
-    <a href="{{ path('app_souris_index') }}">back to list</a>
+        <h1>Create new Souris</h1>
+
+        {{ include('souris/_form.html.twig') }}
+
+        <a href="{{ path('app_souris_index') }}">back to list</a>
+
+    {% endif %}
 {% endblock %}

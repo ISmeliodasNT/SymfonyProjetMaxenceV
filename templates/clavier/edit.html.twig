@@ -3,11 +3,18 @@
 {% block title %}Modifier Clavier{% endblock %}
 
 {% block body %}
-    <h1>Edit Clavier</h1>
 
-    {{ include('clavier/_form.html.twig', {'button_label': 'Mettre a jour'}) }}
+    {% if not is_granted('ROLE_ADMIN') %}
+        <div>Vous n'avez pas accès à cette page.</div>
+    {% else %}
 
-    <a href="{{ path('app_clavier_index') }}">retour</a>
+        <h1>Edit Clavier</h1>
 
-    {{ include('clavier/_delete_form.html.twig') }}
+        {{ include('clavier/_form.html.twig', {'button_label': 'Mettre a jour'}) }}
+
+        <a href="{{ path('app_clavier_index') }}">retour</a>
+
+        {{ include('clavier/_delete_form.html.twig') }}
+
+    {% endif %}
 {% endblock %}

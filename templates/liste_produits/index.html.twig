@@ -3,6 +3,7 @@
 {% block title %}Liste des Produits{% endblock %}
 
 {% block body %}
+
 <h1>Liste des Produits</h1>
 
 <h2>Claviers</h2>
@@ -13,6 +14,7 @@
         {% for clavier in claviers %}
             <div class="produit-card">
                 <h3>{{ clavier.marque }}</h3>
+                <p>Nom : {{ clavier.nom }}</p>
                 <p>Prix : {{ clavier.prix }} €</p>
                 <p>Description : {{ clavier.description }}</p>
                 <p>Stock : {{ clavier.stock }}</p>

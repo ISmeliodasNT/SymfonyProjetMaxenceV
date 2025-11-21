@@ -3,11 +3,18 @@
 <title>Edit Souris</title>
 
 {% block body %}
-    <h1>Edit Souris</h1>
 
-    {{ include('souris/_form.html.twig', {'button_label': 'Update'}) }}
+    {% if not is_granted('ROLE_ADMIN') %}
+        <div>Vous n'avez pas accès à cette page.</div>
+    {% else %}
 
-    <a href="{{ path('app_souris_index') }}">back to list</a>
+        <h1>Edit Souris</h1>
 
-    {{ include('souris/_delete_form.html.twig') }}
+        {{ include('souris/_form.html.twig', {'button_label': 'Update'}) }}
+
+        <a href="{{ path('app_souris_index') }}">back to list</a>
+
+        {{ include('souris/_delete_form.html.twig') }}
+
+    {% endif %}
 {% endblock %}

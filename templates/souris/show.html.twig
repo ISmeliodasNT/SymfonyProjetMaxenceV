@@ -3,48 +3,59 @@
 <title>Souris</title>
 
 {% block body %}
-    <h1>Souris</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ souri.id }}</td>
-            </tr>
-            <tr>
-                <th>Marque</th>
-                <td>{{ souri.marque }}</td>
-            </tr>
-            <tr>
-                <th>Prix</th>
-                <td>{{ souri.prix }}</td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>{{ souri.description }}</td>
-            </tr>
-            <tr>
-                <th>Stock</th>
-                <td>{{ souri.stock }}</td>
-            </tr>
-            <tr>
-                <th>Status</th>
-                <td>{{ souri.status }}</td>
-            </tr>
-            <tr>
-                <th>Connectivite</th>
-                <td>{{ souri.connectivite }}</td>
-            </tr>
-            <tr>
-                <th>NbBoutons</th>
-                <td>{{ souri.NbBoutons }}</td>
-            </tr>
-        </tbody>
-    </table>
+    {% if not is_granted('ROLE_ADMIN') %}
+        <div>Vous n'avez pas accès à cette page.</div>
+    {% else %}
 
-    <a href="{{ path('app_souris_index') }}">back to list</a>
+        <h1>Souris</h1>
 
-    <a href="{{ path('app_souris_edit', {'id': souri.id}) }}">edit</a>
+        <table class="table">
+            <tbody>
+                <tr>
+                    <th>Id</th>
+                    <td>{{ souri.id }}</td>
+                </tr>
+                <tr>
+                    <th>Marque</th>
+                    <td>{{ souri.marque }}</td>
+                </tr>
+                <tr>
+                    <th>Nom</th>
+                    <td>{{ souri.nom }}</td>
+                </tr>
+                <tr>
+                    <th>Prix</th>
+                    <td>{{ souri.prix }}</td>
+                </tr>
+                <tr>
+                    <th>Description</th>
+                    <td>{{ souri.description }}</td>
+                </tr>
+                <tr>
+                    <th>Stock</th>
+                    <td>{{ souri.stock }}</td>
+                </tr>
+                <tr>
+                    <th>Status</th>
+                    <td>{{ souri.status }}</td>
+                </tr>
+                <tr>
+                    <th>Connectivite</th>
+                    <td>{{ souri.connectivite }}</td>
+                </tr>
+                <tr>
+                    <th>NbBoutons</th>
+                    <td>{{ souri.NbBoutons }}</td>
+                </tr>
+            </tbody>
+        </table>
 
-    {{ include('souris/_delete_form.html.twig') }}
+        <a href="{{ path('app_souris_index') }}">back to list</a>
+
+        <a href="{{ path('app_souris_edit', {'id': souri.id}) }}">edit</a>
+
+        {{ include('souris/_delete_form.html.twig') }}
+
+    {% endif %}
 {% endblock %}

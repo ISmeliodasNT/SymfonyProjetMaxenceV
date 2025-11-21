@@ -3,48 +3,59 @@
 {% block title %}Clavier{% endblock %}
 
 {% block body %}
-    <h1>Clavier</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ clavier.id }}</td>
-            </tr>
-            <tr>
-                <th>Marque</th>
-                <td>{{ clavier.marque }}</td>
-            </tr>
-            <tr>
-                <th>Prix</th>
-                <td>{{ clavier.prix }}</td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>{{ clavier.description }}</td>
-            </tr>
-            <tr>
-                <th>Stock</th>
-                <td>{{ clavier.stock }}</td>
-            </tr>
-            <tr>
-                <th>Status</th>
-                <td>{{ clavier.status.value }}</td>
-            </tr>
-            <tr>
-                <th>Switch</th>
-                <td>{{ clavier.switch }}</td>
-            </tr>
-            <tr>
-                <th>Language</th>
-                <td>{{ clavier.language }}</td>
-            </tr>
-        </tbody>
-    </table>
+    {% if not is_granted('ROLE_ADMIN') %}
+        <div>Vous n'avez pas accès à cette page.</div>
+    {% else %}
 
-    <a href="{{ path('app_clavier_index') }}">retour</a>
+        <h1>Clavier</h1>
 
-    <a href="{{ path('app_clavier_edit', {'id': clavier.id}) }}">modifier</a>
+        <table class="table">
+            <tbody>
+                <tr>
+                    <th>Id</th>
+                    <td>{{ clavier.id }}</td>
+                </tr>
+                <tr>
+                    <th>Marque</th>
+                    <td>{{ clavier.marque }}</td>
+                </tr>
+                <tr>
+                    <th>Nom</th>
+                    <td>{{ clavier.nom }}</td>
+                </tr>
+                <tr>
+                    <th>Prix</th>
+                    <td>{{ clavier.prix }}</td>
+                </tr>
+                <tr>
+                    <th>Description</th>
+                    <td>{{ clavier.description }}</td>
+                </tr>
+                <tr>
+                    <th>Stock</th>
+                    <td>{{ clavier.stock }}</td>
+                </tr>
+                <tr>
+                    <th>Status</th>
+                    <td>{{ clavier.status.value }}</td>
+                </tr>
+                <tr>
+                    <th>Switch</th>
+                    <td>{{ clavier.switch }}</td>
+                </tr>
+                <tr>
+                    <th>Language</th>
+                    <td>{{ clavier.language }}</td>
+                </tr>
+            </tbody>
+        </table>
 
-    {{ include('clavier/_delete_form.html.twig') }}
+        <a href="{{ path('app_clavier_index') }}">retour</a>
+
+        <a href="{{ path('app_clavier_edit', {'id': clavier.id}) }}">modifier</a>
+
+        {{ include('clavier/_delete_form.html.twig') }}
+
+    {% endif %}
 {% endblock %}

@@ -3,9 +3,15 @@
 {% block title %}Nouveau Clavier{% endblock %}
 
 {% block body %}
-    <h1>Create new Clavier</h1>
 
-    {{ include('clavier/_form.html.twig') }}
+    {% if not is_granted('ROLE_ADMIN') %}
+        <div>Vous n'avez pas accès à cette page.</div>
+    {% else %}
 
-    <a href="{{ path('app_clavier_index') }}">retour</a>
+        <h1>Create new Clavier</h1>
+
+        {{ include('clavier/_form.html.twig') }}
+
+        <a href="{{ path('app_clavier_index') }}">retour</a>
+    {% endif %}
 {% endblock %}

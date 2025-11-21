@@ -13,6 +13,7 @@ class SourisType extends AbstractType
     {
         $builder
             ->add('marque')
+            ->add('nom')
             ->add('prix')
             ->add('description')
             ->add('stock')
