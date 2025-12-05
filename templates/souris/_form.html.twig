@@ -1,4 +1,79 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+    
+    {{ form_errors(form) }}
+
+    {{ form_row(form.marque) }}
+    {{ form_row(form.nom) }}
+    {{ form_row(form.prix) }}
+    {{ form_row(form.stock) }}
+    {{ form_row(form.status) }}
+    {{ form_row(form.connectivite) }}
+    {{ form_row(form.NbBoutons) }}
+    {{ form_row(form.description) }}
+
+    <hr>
+
+    <h3>Gestion des Images</h3>
+    
+    <div id="images-wrapper" 
+         class="row"
+         data-prototype="{{ form_widget(form.images.vars.prototype)|e('html_attr') }}"
+         data-index="{{ form.images|length }}">
+            {% for imageField in form.images %}
+            <div class="col-md-4 image-item mb-3">
+                <div class="card p-3 bg-light">
+                    {{ form_errors(imageField) }}
+                    {{ form_widget(imageField) }}
+                    <button type="button" class="btn btn-danger btn-sm mt-2 remove-image-btn">Supprimer cette image</button>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    <button type="button" class="btn btn-outline-primary mb-4" id="add-image-btn">
+        + Ajouter une image
+    </button>
+
+    {% do form.images.setRendered() %}
+
+    <div class="mt-3">
+        <button class="btn btn-primary">{{ button_label|default('Enregistrer') }}</button>
+    </div>
+
+    {{ form_rest(form) }}
+
 {{ form_end(form) }}
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const wrapper = document.querySelector('#images-wrapper');
+        const addButton = document.querySelector('#add-image-btn');
+        
+        addButton.addEventListener('click', function(e) {
+            e.preventDefault();
+            const prototype = wrapper.dataset.prototype;
+            const index = wrapper.dataset.index;
+            
+            const newForm = prototype.replace(/__name__/g, index);
+            
+            const item = document.createElement('div');
+            item.classList.add('col-md-4', 'image-item', 'mb-3');
+            item.innerHTML = `
+                <div class="card p-3 bg-light">
+                    ${newForm}
+                    <button type="button" class="btn btn-danger btn-sm mt-2 remove-image-btn">Supprimer cette image</button>
+                </div>
+            `;
+            
+            wrapper.appendChild(item);
+            wrapper.dataset.index++;
+        });
+
+        wrapper.addEventListener('click', function(e) {
+            if (e.target && e.target.classList.contains('remove-image-btn')) {
+                e.preventDefault();
+                e.target.closest('.image-item').remove();
+            }
+        });
+    });
+</script>

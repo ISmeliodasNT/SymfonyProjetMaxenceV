@@ -34,6 +34,8 @@
         + Ajouter une image
     </button>
 
+    {% do form.images.setRendered() %}
+
     <div class="mt-3">
         <button class="btn btn-primary">{{ button_label|default('Enregistrer') }}</button>
     </div>

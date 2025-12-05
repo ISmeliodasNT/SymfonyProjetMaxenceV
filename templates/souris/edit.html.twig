@@ -1,6 +1,6 @@
-<!DOCTYPE html>
+{% extends 'base.html.twig' %}
 
-<title>Edit Souris</title>
+{% block title %}Modifier souris{% endblock %}
 
 {% block body %}
 
@@ -10,9 +10,9 @@
 
         <h1>Edit Souris</h1>
 
-        {{ include('souris/_form.html.twig', {'button_label': 'Update'}) }}
+        {{ include('souris/_form.html.twig', {'button_label': 'Mettre a jour'}) }}
 
-        <a href="{{ path('app_souris_index') }}">back to list</a>
+        <a href="{{ path('app_souris_index') }}">retour</a>
 
         {{ include('souris/_delete_form.html.twig') }}
 

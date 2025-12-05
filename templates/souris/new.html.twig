@@ -1,6 +1,6 @@
-<!DOCTYPE html>
+{% extends 'base.html.twig' %}
 
-<title>New Souris</title>
+{% block title %}Nouvelle souris{% endblock %}
 
 {% block body %}
 
@@ -12,7 +12,7 @@
 
         {{ include('souris/_form.html.twig') }}
 
-        <a href="{{ path('app_souris_index') }}">back to list</a>
+        <a href="{{ path('app_souris_index') }}">retour</a>
 
     {% endif %}
 {% endblock %}
