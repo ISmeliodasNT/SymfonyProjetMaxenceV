@@ -48,6 +48,26 @@
                     <th>Language</th>
                     <td>{{ clavier.language }}</td>
                 </tr>
+                <tr>
+                    <th>Images</th>
+                    <td>
+                        {% if clavier.images is empty %}
+                            <span class="text-muted">Aucune image pour ce produit.</span>
+                        {% else %}
+                            <div class="d-flex flex-wrap gap-3">
+                                {% for image in clavier.images %}
+                                    <div class="card">
+                                        <img src="{{ asset('uploads/' ~ image.url) }}" 
+                                             alt="Image du clavier" 
+                                             class="img-fluid rounded"
+                                             style="max-width: 200px; max-height: 200px; object-fit: cover;"
+                                        >
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </td>
+                </tr>
             </tbody>
         </table>
 

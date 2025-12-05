@@ -3,11 +3,13 @@
 namespace App\Form;
 
 use App\Entity\Clavier;
+use App\Form\ImageType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use App\Enum\Status;
 use Symfony\Component\Form\Extension\Core\Type\EnumType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 class ClavierType extends AbstractType
 {
@@ -25,6 +27,14 @@ class ClavierType extends AbstractType
             ])
             ->add('switch')
             ->add('language')
+            ->add('images', CollectionType::class, [
+                'entry_type' => ImageType::class,
+                'entry_options' => ['label' => false],
+                'allow_add' => true,    
+                'allow_delete' => true, 
+                'by_reference' => false,
+                'label' => 'Images du produit',
+            ])
         ;
     }
 

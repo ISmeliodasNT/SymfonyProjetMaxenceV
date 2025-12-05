@@ -22,6 +22,7 @@
                     <th>Status</th>
                     <th>Switch</th>
                     <th>Language</th>
+                    <th>Images</th>
                     <th>actions</th>
                 </tr>
             </thead>
@@ -37,6 +38,20 @@
                     <td>{{ clavier.status.value }}</td>
                     <td>{{ clavier.switch }}</td>
                     <td>{{ clavier.language }}</td>
+                    <td>
+                        {% if clavier.images is empty %}
+                            <span class="text-danger">Aucune image</span>
+                        {% else %}
+                            <div style="display: flex; gap: 5px;">
+                                {% for image in clavier.images %}
+                                    <img src="{{ asset('uploads/' ~ image.url) }}"
+                                         alt="Image du clavier {{ clavier.nom }}" 
+                                         style="width: 50px; height: 50px; object-fit: cover; border-radius: 4px;"
+                                    >
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </td>
                     <td>
                         <a href="{{ path('app_clavier_show', {'id': clavier.id}) }}">afficher</a>
                         <a href="{{ path('app_clavier_edit', {'id': clavier.id}) }}">modifier</a>
