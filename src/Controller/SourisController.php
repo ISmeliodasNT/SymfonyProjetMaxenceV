@@ -78,4 +78,14 @@ final class SourisController extends AbstractController
 
         return $this->redirectToRoute('app_souris_index', [], Response::HTTP_SEE_OTHER);
     }
+
+    #[Route('/{id}/affichage', name: 'app_souris_affichage', methods: ['GET'])]
+    public function affichage(int $id, SourisRepository $sourisRepository): Response
+    {
+        $souris = $sourisRepository->find($id);
+
+        return $this->render('liste_produits/souris.html.twig', [
+            'souris' => $souris,
+        ]);
+    }
 }

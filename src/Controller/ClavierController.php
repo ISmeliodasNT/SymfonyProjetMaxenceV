@@ -78,4 +78,14 @@ final class ClavierController extends AbstractController
 
         return $this->redirectToRoute('app_clavier_index', [], Response::HTTP_SEE_OTHER);
     }
+
+    #[Route('/{id}/affichage', name: 'app_clavier_affichage', methods: ['GET'])]
+    public function affichage(int $id, ClavierRepository $clavierRepository): Response
+    {
+        $clavier = $clavierRepository->find($id);
+
+        return $this->render('liste_produits/clavier.html.twig', [
+            'clavier' => $clavier,
+        ]);
+    }
 }

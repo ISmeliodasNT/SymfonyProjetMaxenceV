@@ -1,0 +1,69 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Clavier{% endblock %}
+
+{% block body %}
+
+    <a href="{{ path('app_liste_produits') }}" class="btn btn-outline-secondary">Retour</a>
+
+    {% if  clavier is null %}
+        <div>Ce clavier n'est pas disponible.</div>
+    {% else %}
+
+        <div class="row">
+            <div class="col-md-6 mb-4">                
+                {% if clavier.images is empty %}
+                    <div class="alert alert-warning text-center p-5">
+                        Aucune image disponible
+                    </div>
+                {% else %}
+                    <div id="carouselClavier" class="carousel slide shadow rounded" data-bs-ride="carousel" style="overflow: hidden;">        
+                        <div class="carousel-inner">
+                            {% for image in clavier.images %}
+                                <div class="carousel-item {{ loop.first ? 'active' : '' }}">
+                                    <img src="{{ asset('uploads/' ~ image.url) }}" 
+                                        class="d-block w-100" 
+                                        alt="Image {{ clavier.nom }}"
+                                        style="height: 400px; object-fit: cover;"
+                                    >
+                                </div>
+                            {% endfor %}
+                        </div>
+                        {% if clavier.images|length > 1 %}
+                            <button class="carousel-control-prev" type="button" data-bs-target="#carouselClavier" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true" style="background-color: rgba(0,0,0,0.3); border-radius: 50%;"></span>
+                                <span class="visually-hidden">Précédent</span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#carouselClavier" data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true" style="background-color: rgba(0,0,0,0.3); border-radius: 50%;"></span>
+                                <span class="visually-hidden">Suivant</span>
+                            </button>
+                        {% endif %}        
+                    </div>
+                {% endif %}
+            </div>
+            <div class="col-md-6">
+                <h1 class="mb-2">{{ clavier.nom }}</h1>
+                <h4 class="text-muted mb-4">{{ clavier.marque }}</h4>
+                <div class="fs-4 text-primary fw-bold mb-3">{{ clavier.prix }} €</div>
+                <p class="lead">{{ clavier.description }}</p>
+                <hr>
+                <ul class="list-unstyled">
+                    <li class="mb-2"><strong>Stock :</strong> 
+                        {% if clavier.stock > 0 %}
+                            <span class="badge bg-success">En stock ({{ clavier.stock }})</span>
+                        {% else %}
+                            <span class="badge bg-danger">Rupture</span>
+                        {% endif %}
+                    </li>
+                    <li class="mb-2"><strong>Statut :</strong> {{ clavier.status.value }}</li>
+                    <li class="mb-2"><strong>Switch :</strong> {{ clavier.switch }}</li>
+                    <li class="mb-2"><strong>Langue :</strong> {{ clavier.language }}</li>
+                </ul>
+                <div class="mt-4 d-flex gap-2">
+                    {#bouton panier a ajouter#}
+                </div>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}

@@ -12,15 +12,31 @@
 {% else %}
     <div class="produits-container">
         {% for clavier in claviers %}
+            <a href="{{ path('app_clavier_affichage', {'id': clavier.id}) }}" class="lien-carte">
             <div class="produit-card">
                 <h3>{{ clavier.marque }}</h3>
+                {% if clavier.images is empty %}
+                <div class="mb-2">
+                    <span class="text-danger">Aucune image</span>
+                </div>
+                {% else %}
+                    {% set image1 = clavier.images[0] %}
+                    {% set image2 = clavier.images[1] ?? null %}
+                    <div class="image-wrapper">
+                        <img src="{{ asset('uploads/' ~ image1.url) }}" 
+                            alt="{{ clavier.nom }}"
+                            class="img-main"
+                        >
+                        {% if image2 %}
+                            <img src="{{ asset('uploads/' ~ image2.url) }}" 
+                                alt="{{ clavier.nom }} hover"
+                                class="img-hover"
+                            >
+                        {% endif %}
+                    </div>
+                {% endif %}
                 <p>Nom : {{ clavier.nom }}</p>
                 <p>Prix : {{ clavier.prix }} €</p>
-                <p>Description : {{ clavier.description }}</p>
-                <p>Stock : {{ clavier.stock }}</p>
-                <p>Status : {{ clavier.status.value }}</p>
-                <p>Switch : {{ clavier.switch }}</p>
-                <p>Langue : {{ clavier.language }}</p>
             </div>
         {% endfor %}
     </div>
@@ -33,15 +49,32 @@
     <p>Aucune souris disponible.</p>
 {% else %}
     <div class="produits-container">
-        {% for item in souris %}
+        {% for souri in souris %}
+            <a href="{{ path('app_souris_affichage', {'id': souri.id}) }}" class="lien-carte">
             <div class="produit-card">
-                <h3>{{ item.marque }}</h3>
-                <p>Prix : {{ item.prix }} €</p>
-                <p>Description : {{ item.description }}</p>
-                <p>Stock : {{ item.stock }}</p>
-                <p>Status : {{ item.status.value }}</p>
-                <p>Type : {{ item.type }}</p>
-                <p>CPI : {{ item.cpi }}</p>
+                <h3>{{ souri.marque }}</h3>
+                {% if souri.images is empty %}
+                <div class="mb-2">
+                    <span class="text-danger">Aucune image</span>
+                </div>
+                {% else %}
+                    {% set image1 = souri.images[0] %}
+                    {% set image2 = souri.images[1] ?? null %}
+                    <div class="image-wrapper">
+                        <img src="{{ asset('uploads/' ~ image1.url) }}" 
+                            alt="{{ souri.nom }}"
+                            class="img-main"
+                        >
+                        {% if image2 %}
+                            <img src="{{ asset('uploads/' ~ image2.url) }}" 
+                                alt="{{ souri.nom }} hover"
+                                class="img-hover"
+                            >
+                        {% endif %}
+                    </div>
+                {% endif %}
+                <p>Nom : {{ souri.nom }}</p>
+                <p>Prix : {{ souri.prix }} €</p>
             </div>
         {% endfor %}
     </div>
