@@ -1,29 +1,29 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Souris index{% endblock %}
+{% block title %}{% trans %}titre_index_souris{% endtrans %}{% endblock %}
 
 {% block body %}
 
     {% if not is_granted('ROLE_ADMIN') %}
-        <div>Vous n'avez pas accès à cette page.</div>
+        <div>{% trans %}msg_acces_page_invalide{% endtrans %}</div>
     {% else %}
 
-        <h1>Souris index</h1>
+        <h1>{% trans %}titre_index_souris{% endtrans %}</h1>
 
         <table class="table">
             <thead>
                 <tr>
-                    <th>Id</th>
-                    <th>Marque</th>
-                    <th>Nom</th>
-                    <th>Prix</th>
-                    <th>Description</th>
-                    <th>Stock</th>
-                    <th>Status</th>
-                    <th>Connectivite</th>
-                    <th>NbBoutons</th>
-                    <th>Images</th>
-                    <th>actions</th>
+                    <th>{% trans %}index_souris_id{% endtrans %}</th>
+                    <th>{% trans %}index_souris_marque{% endtrans %}</th>
+                    <th>{% trans %}index_souris_nom{% endtrans %}</th>
+                    <th>{% trans %}index_souris_prix{% endtrans %}</th>
+                    <th>{% trans %}index_souris_description{% endtrans %}</th>
+                    <th>{% trans %}index_souris_stock{% endtrans %}</th>
+                    <th>{% trans %}index_souris_status{% endtrans %}</th>
+                    <th>{% trans %}index_souris_connectivite{% endtrans %}</th>
+                    <th>{% trans %}index_souris_nbbtn{% endtrans %}</th>
+                    <th>{% trans %}index_souris_images{% endtrans %}</th>
+                    <th>{% trans %}index_souris_actions{% endtrans %}</th>
                 </tr>
             </thead>
             <tbody>
@@ -40,7 +40,7 @@
                     <td>{{ souri.NbBoutons }}</td>
                     <td>
                         {% if souri.images is empty %}
-                            <span class="text-danger">Aucune image</span>
+                            <span class="text-danger">{% trans %}texte_warning_aucune_img{% endtrans %}</span>
                         {% else %}
                             <div style="display: flex; gap: 5px;">
                                 {% for image in souri.images %}
@@ -53,19 +53,19 @@
                         {% endif %}
                     </td>
                     <td>
-                        <a href="{{ path('app_souris_show', {'id': souri.id}) }}">afficher</a>
-                        <a href="{{ path('app_souris_edit', {'id': souri.id}) }}">modifier</a>
+                        <a href="{{ path('app_souris_show', {'id': souri.id}) }}">{% trans %}texte_btn_afficher{% endtrans %}</a>
+                        <a href="{{ path('app_souris_edit', {'id': souri.id}) }}">{% trans %}texte_btn_modifier{% endtrans %}</a>
                     </td>
                 </tr>
             {% else %}
                 <tr>
-                    <td colspan="9">Aucune souris trouvée</td>
+                    <td colspan="9">{% trans %}texte_warning_aucun_souris{% endtrans %}</td>
                 </tr>
             {% endfor %}
             </tbody>
         </table>
 
-        <a href="{{ path('app_souris_new') }}">Créer une nouvelle souri</a>
+        <a href="{{ path('app_souris_new') }}">{% trans %}texte_btn_creer_souris{% endtrans %}</a>
 
     {% endif %}
 {% endblock %}

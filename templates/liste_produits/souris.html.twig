@@ -1,20 +1,20 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Souris{% endblock %}
+{% block title %}{% trans %}titre_afficher_souris{% endtrans %}{% endblock %}
 
 {% block body %}
 
-    <a href="{{ path('app_liste_produits') }}" class="btn btn-outline-secondary">Retour</a>
+    <a href="{{ path('app_liste_produits') }}" class="btn btn-outline-secondary">{% trans %}texte_btn_retour{% endtrans %}</a>
 
     {% if  souris is null %}
-        <div>Cette souris n'est pas disponible.</div>
+        <div>{% trans %}texte_warning_aucun_souris{% endtrans %}</div>
     {% else %}
 
         <div class="row">
             <div class="col-md-6 mb-4">                
                 {% if souris.images is empty %}
                     <div class="alert alert-warning text-center p-5">
-                        Aucune image disponible
+                        {% trans %}texte_warning_aucune_img{% endtrans %}
                     </div>
                 {% else %}
                     <div id="carouselSouris" class="carousel slide shadow rounded" data-bs-ride="carousel" style="overflow: hidden;">        
@@ -49,16 +49,16 @@
                 <p class="lead">{{ souris.description }}</p>
                 <hr>
                 <ul class="list-unstyled">
-                    <li class="mb-2"><strong>Stock :</strong> 
+                    <li class="mb-2"><strong>{% trans %}texte_gestion_produit_stock{% endtrans %}</strong> 
                         {% if souris.stock > 0 %}
-                            <span class="badge bg-success">En stock ({{ souris.stock }})</span>
+                            <span class="badge bg-success">{% trans %}texte_gestion_produit_stock_dispo{% endtrans %}({{ souris.stock }})</span>
                         {% else %}
-                            <span class="badge bg-danger">Rupture</span>
+                            <span class="badge bg-danger">{% trans %}texte_gestion_produit_stock_hs{% endtrans %}</span>
                         {% endif %}
                     </li>
-                    <li class="mb-2"><strong>Statut :</strong> {{ souris.status.value }}</li>
-                    <li class="mb-2"><strong>Switch :</strong> {{ souris.connectivite }}</li>
-                    <li class="mb-2"><strong>Langue :</strong> {{ souris.NbBoutons }}</li>
+                    <li class="mb-2"><strong>{% trans %}texte_gestion_produit_status{% endtrans %}</strong> {{ souris.status.value }}</li>
+                    <li class="mb-2"><strong>{% trans %}texte_gestion_souris_connectivite{% endtrans %}</strong> {{ souris.connectivite }}</li>
+                    <li class="mb-2"><strong>{% trans %}texte_gestion_souris_nbboutons{% endtrans %}</strong> {{ souris.NbBoutons }}</li>
                 </ul>
                 <div class="mt-4 d-flex gap-2">
                     {#bouton panier a ajouter#}

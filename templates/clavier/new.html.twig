@@ -1,17 +1,17 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Nouveau Clavier{% endblock %}
+{% block title %}{% trans %}titre_nouveau_clavier{% endtrans %}{% endblock %}
 
 {% block body %}
 
     {% if not is_granted('ROLE_ADMIN') %}
-        <div>Vous n'avez pas accès à cette page.</div>
+        <div>{% trans %}msg_acces_page_invalide{% endtrans %}</div>
     {% else %}
 
-        <h1>Create new Clavier</h1>
+        <h1>{% trans %}titre_nouveau_clavier{% endtrans %}</h1>
 
         {{ include('clavier/_form.html.twig') }}
 
-        <a href="{{ path('app_clavier_index') }}">retour</a>
+        <a href="{{ path('app_clavier_index') }}">{% trans %}texte_btn_retour{% endtrans %}</a>
     {% endif %}
 {% endblock %}

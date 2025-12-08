@@ -1,18 +1,18 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Modifier souris{% endblock %}
+{% block title %}{% trans %}titre_modif_souris{% endtrans %}{% endblock %}
 
 {% block body %}
 
     {% if not is_granted('ROLE_ADMIN') %}
-        <div>Vous n'avez pas accès à cette page.</div>
+        <div>{% trans %}msg_acces_page_invalide{% endtrans %}</div>
     {% else %}
 
-        <h1>Edit Souris</h1>
+        <h1>{% trans %}titre_modif_souris{% endtrans %}</h1>
 
-        {{ include('souris/_form.html.twig', {'button_label': 'Mettre a jour'}) }}
+        {{ include('souris/_form.html.twig', {'button_label': 'texte_btn_maj'|trans}) }}
 
-        <a href="{{ path('app_souris_index') }}">retour</a>
+        <a href="{{ path('app_souris_index') }}">{% trans %}texte_btn_retour{% endtrans %}</a>
 
         {{ include('souris/_delete_form.html.twig') }}
 

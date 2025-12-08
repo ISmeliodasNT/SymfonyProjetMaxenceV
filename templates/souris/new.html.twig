@@ -1,18 +1,18 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Nouvelle souris{% endblock %}
+{% block title %}{% trans %}titre_nouveau_souris{% endtrans %}{% endblock %}
 
 {% block body %}
 
     {% if not is_granted('ROLE_ADMIN') %}
-        <div>Vous n'avez pas accès à cette page.</div>
+        <div>{% trans %}msg_acces_page_invalide{% endtrans %}</div>
     {% else %}
 
-        <h1>Create new Souris</h1>
+        <h1>{% trans %}titre_nouveau_souris{% endtrans %}</h1>
 
         {{ include('souris/_form.html.twig') }}
 
-        <a href="{{ path('app_souris_index') }}">retour</a>
+        <a href="{{ path('app_souris_index') }}">{% trans %}texte_btn_retour{% endtrans %}</a>
 
     {% endif %}
 {% endblock %}

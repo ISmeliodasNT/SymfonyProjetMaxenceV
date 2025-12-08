@@ -1,29 +1,29 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Clavier index{% endblock %}
+{% block title %}{% trans %}titre_index_clavier{% endtrans %}{% endblock %}
 
 {% block body %}
 
     {% if not is_granted('ROLE_ADMIN') %}
-        <div>Vous n'avez pas accès à cette page.</div>
+        <div>{% trans %}msg_acces_page_invalide{% endtrans %}</div>
     {% else %}
 
-        <h1>Clavier index</h1>
+        <h1>{% trans %}titre_index_clavier{% endtrans %}</h1>
 
         <table class="table">
             <thead>
                 <tr>
-                    <th>Id</th>
-                    <th>Marque</th>
-                    <th>Nom</th>
-                    <th>Prix</th>
-                    <th>Description</th>
-                    <th>Stock</th>
-                    <th>Status</th>
-                    <th>Switch</th>
-                    <th>Language</th>
-                    <th>Images</th>
-                    <th>actions</th>
+                    <th>{% trans %}index_clavier_id{% endtrans %}</th>
+                    <th>{% trans %}index_clavier_marque{% endtrans %}</th>
+                    <th>{% trans %}index_clavier_nom{% endtrans %}</th>
+                    <th>{% trans %}index_clavier_prix{% endtrans %}</th>
+                    <th>{% trans %}index_clavier_description{% endtrans %}</th>
+                    <th>{% trans %}index_clavier_stock{% endtrans %}</th>
+                    <th>{% trans %}index_clavier_status{% endtrans %}</th>
+                    <th>{% trans %}index_clavier_switch{% endtrans %}</th>
+                    <th>{% trans %}index_clavier_language{% endtrans %}</th>
+                    <th>{% trans %}index_clavier_images{% endtrans %}</th>
+                    <th>{% trans %}index_clavier_actions{% endtrans %}</th>
                 </tr>
             </thead>
             <tbody>
@@ -40,7 +40,7 @@
                     <td>{{ clavier.language }}</td>
                     <td>
                         {% if clavier.images is empty %}
-                            <span class="text-danger">Aucune image</span>
+                            <span class="text-danger">{% trans %}texte_warning_aucune_img{% endtrans %}</span>
                         {% else %}
                             <div style="display: flex; gap: 5px;">
                                 {% for image in clavier.images %}
@@ -53,19 +53,19 @@
                         {% endif %}
                     </td>
                     <td>
-                        <a href="{{ path('app_clavier_show', {'id': clavier.id}) }}">afficher</a>
-                        <a href="{{ path('app_clavier_edit', {'id': clavier.id}) }}">modifier</a>
+                        <a href="{{ path('app_clavier_show', {'id': clavier.id}) }}">{% trans %}texte_btn_afficher{% endtrans %}</a>
+                        <a href="{{ path('app_clavier_edit', {'id': clavier.id}) }}">{% trans %}texte_btn_modifier{% endtrans %}</a>
                     </td>
                 </tr>
             {% else %}
                 <tr>
-                    <td colspan="9">Aucun clavier trouvé</td>
+                    <td colspan="9">{% trans %}texte_warning_aucun_clavier{% endtrans %}</td>
                 </tr>
             {% endfor %}
             </tbody>
         </table>
 
-        <a href="{{ path('app_clavier_new') }}">Créer un nouveau clavier</a>
+        <a href="{{ path('app_clavier_new') }}">{% trans %}texte_btn_creer_clavier{% endtrans %}</a>
 
     {% endif %}
 

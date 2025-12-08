@@ -16,8 +16,8 @@ class ImageType extends AbstractType
     {
         $builder
             ->add('url', TextType::class, [
-                'label' => 'Nom du fichier (ex: image.jpg)',
-                'help' => 'Assurez-vous que ce fichier existe dans public/uploads'
+                'label' => 'image_url_label',
+                'help' => 'image_url_help'
             ])
         ;
     }

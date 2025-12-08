@@ -1,58 +1,58 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Souris{% endblock %}
+{% block title %}{% trans %}titre_afficher_souris{% endtrans %}{% endblock %}
 
 {% block body %}
 
     {% if not is_granted('ROLE_ADMIN') %}
-        <div>Vous n'avez pas accès à cette page.</div>
+        <div>{% trans %}msg_acces_page_invalide{% endtrans %}</div>
     {% else %}
 
-        <h1>Souris</h1>
+        <h1>{% trans %}titre_afficher_souris{% endtrans %}</h1>
 
         <table class="table">
             <tbody>
                 <tr>
-                    <th>Id</th>
+                    <th>{% trans %}index_souris_id{% endtrans %}</th>
                     <td>{{ souri.id }}</td>
                 </tr>
                 <tr>
-                    <th>Marque</th>
+                    <th>{% trans %}index_souris_marque{% endtrans %}</th>
                     <td>{{ souri.marque }}</td>
                 </tr>
                 <tr>
-                    <th>Nom</th>
+                    <th>{% trans %}index_souris_nom{% endtrans %}</th>
                     <td>{{ souri.nom }}</td>
                 </tr>
                 <tr>
-                    <th>Prix</th>
+                    <th>{% trans %}index_souris_prix{% endtrans %}</th>
                     <td>{{ souri.prix }}</td>
                 </tr>
                 <tr>
-                    <th>Description</th>
+                    <th>{% trans %}index_souris_description{% endtrans %}</th>
                     <td>{{ souri.description }}</td>
                 </tr>
                 <tr>
-                    <th>Stock</th>
+                    <th>{% trans %}index_souris_stock{% endtrans %}</th>
                     <td>{{ souri.stock }}</td>
                 </tr>
                 <tr>
-                    <th>Status</th>
+                    <th>{% trans %}index_souris_status{% endtrans %}</th>
                     <td>{{ souri.status.value }}</td>
                 </tr>
                 <tr>
-                    <th>Connectivite</th>
+                    <th>{% trans %}index_souris_connectivite{% endtrans %}</th>
                     <td>{{ souri.connectivite }}</td>
                 </tr>
                 <tr>
-                    <th>NbBoutons</th>
+                    <th>{% trans %}index_souris_nbbtn{% endtrans %}</th>
                     <td>{{ souri.NbBoutons }}</td>
                 </tr>
                 <tr>
-                    <th>Images</th>
+                    <th>{% trans %}index_souris_images{% endtrans %}</th>
                     <td>
                         {% if souri.images is empty %}
-                            <span class="text-muted">Aucune image pour ce produit.</span>
+                            <span class="text-muted">{% trans %}texte_warning_aucune_img2{% endtrans %}</span>
                         {% else %}
                             <div class="d-flex flex-wrap gap-3">
                                 {% for image in souri.images %}
@@ -71,9 +71,9 @@
             </tbody>
         </table>
 
-        <a href="{{ path('app_souris_index') }}">retour</a>
+        <a href="{{ path('app_souris_index') }}">{% trans %}texte_btn_retour{% endtrans %}</a>
 
-        <a href="{{ path('app_souris_edit', {'id': souri.id}) }}">modifier</a>
+        <a href="{{ path('app_souris_edit', {'id': souri.id}) }}">{% trans %}texte_btn_modifier{% endtrans %}</a>
 
         {{ include('souris/_delete_form.html.twig') }}
 

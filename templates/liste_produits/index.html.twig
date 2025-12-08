@@ -1,14 +1,14 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Liste des Produits{% endblock %}
+{% block title %}{% trans %}header_lien_produits{% endtrans %}{% endblock %}
 
 {% block body %}
 
-<h1>Liste des Produits</h1>
+<h1>{% trans %}header_lien_produits{% endtrans %}</h1>
 
-<h2>Claviers</h2>
+<h2>{% trans %}titre_afficher_clavier{% endtrans %}</h2>
 {% if claviers is empty %}
-    <p>Aucun clavier disponible.</p>
+    <p>{% trans %}texte_warning_aucun_clavier{% endtrans %}</p>
 {% else %}
     <div class="produits-container">
         {% for clavier in claviers %}
@@ -17,7 +17,7 @@
                 <h3>{{ clavier.marque }}</h3>
                 {% if clavier.images is empty %}
                 <div class="mb-2">
-                    <span class="text-danger">Aucune image</span>
+                    <span class="text-danger">{% trans %}texte_warning_aucune_img{% endtrans %}</span>
                 </div>
                 {% else %}
                     {% set image1 = clavier.images[0] %}
@@ -35,8 +35,8 @@
                         {% endif %}
                     </div>
                 {% endif %}
-                <p>Nom : {{ clavier.nom }}</p>
-                <p>Prix : {{ clavier.prix }} €</p>
+                <p>{% trans %}texte_gestion_produit_nom{% endtrans %}{{ clavier.nom }}</p>
+                <p>{% trans %}texte_gestion_produit_prix{% endtrans %}{{ clavier.prix }} €</p>
             </div>
         {% endfor %}
     </div>
@@ -44,9 +44,9 @@
 
 <hr>
 
-<h2>Souris</h2>
+<h2>{% trans %}titre_afficher_souris{% endtrans %}</h2>
 {% if souris is empty %}
-    <p>Aucune souris disponible.</p>
+    <p>{% trans %}texte_warning_aucun_souris{% endtrans %}</p>
 {% else %}
     <div class="produits-container">
         {% for souri in souris %}
@@ -55,7 +55,7 @@
                 <h3>{{ souri.marque }}</h3>
                 {% if souri.images is empty %}
                 <div class="mb-2">
-                    <span class="text-danger">Aucune image</span>
+                    <span class="text-danger">{% trans %}texte_warning_aucune_img{% endtrans %}</span>
                 </div>
                 {% else %}
                     {% set image1 = souri.images[0] %}
@@ -73,8 +73,8 @@
                         {% endif %}
                     </div>
                 {% endif %}
-                <p>Nom : {{ souri.nom }}</p>
-                <p>Prix : {{ souri.prix }} €</p>
+                <p>{% trans %}texte_gestion_produit_nom{% endtrans %}{{ souri.nom }}</p>
+                <p>{% trans %}texte_gestion_produit_prix{% endtrans %}{{ souri.prix }} €</p>
             </div>
         {% endfor %}
     </div>

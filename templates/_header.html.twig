@@ -2,17 +2,17 @@
     <div class="header-container">
         <a href="{{ path('accueil') }}"  class="lien"> <h1 class="site-title">MonSuperSite</h1> </a>
 
-        <a href="{{ path('app_liste_produits') }}" class="lien">Liste des produits</a>
+        <a href="{{ path('app_liste_produits') }}" class="lien">{% trans %}header_lien_produits{% endtrans %}</a>
 
         {% if is_granted('ROLE_ADMIN') %}
             <div class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
-                    Gestion des produits
+                    {% trans %}header_lien_gestion_produits{% endtrans %}
                 </a>
 
                 <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="{{ path('app_clavier_index') }}">Claviers</a></li>
-                    <li><a class="dropdown-item" href="{{ path('app_souris_index') }}">Souris</a></li>
+                    <li><a class="dropdown-item" href="{{ path('app_clavier_index') }}">{% trans %}header_dropdown_clavier{% endtrans %}</a></li>
+                    <li><a class="dropdown-item" href="{{ path('app_souris_index') }}">{% trans %}header_dropdown_souris{% endtrans %}</a></li>
                 </ul>
             </div>
         {% endif %}
@@ -20,18 +20,18 @@
         {% set route = app.request.attributes.get('_route') %}
 
         {% if app.user %}
-            <a href="{{ path('app_logout') }}" class="login-btn">Se déconnecter</a>
+            <a href="{{ path('app_logout') }}" class="login-btn">{% trans %}header_btn_deconnecter{% endtrans %}</a>
         {% else %}
             {% if route == 'app_login' %}
                 {% if app.user %}
-                    <a href="{{ path('app_logout') }}" class="login-btn">Se déconnecter</a>
+                    <a href="{{ path('app_logout') }}" class="login-btn">{% trans %}header_btn_deconnecter{% endtrans %}</a>
                 {% else %}
-                    <a href="{{ path('app_register') }}" class="login-btn">S'inscrire</a>
+                    <a href="{{ path('app_register') }}" class="login-btn">{% trans %}header_btn_inscription{% endtrans %}</a>
                 {% endif %}
             {% elseif route == 'app_register' %}
-                <a href="{{ path('app_login') }}" class="login-btn">Connexion</a>
+                <a href="{{ path('app_login') }}" class="login-btn">{% trans %}header_btn_connexion{% endtrans %}</a>
             {% else %}
-                <a href="{{ path('app_login') }}" class="login-btn">Connexion</a>
+                <a href="{{ path('app_login') }}" class="login-btn">{% trans %}header_btn_connexion{% endtrans %}</a>
             {% endif %}
         {% endif %}
     </div>

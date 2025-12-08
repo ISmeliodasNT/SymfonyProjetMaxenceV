@@ -1,4 +1,4 @@
-<form method="post" action="{{ path('app_clavier_delete', {'id': clavier.id}) }}" onsubmit="return confirm('Voulez vous vraiment supprimer cet article ?');">
+<form method="post" action="{{ path('app_clavier_delete', {'id': clavier.id}) }}" onsubmit="return confirm('{{ 'texte_btn_confirmation_supprimer'|trans }}');">
     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ clavier.id) }}">
-    <button class="btn">Supprimer</button>
+    <button class="btn">{% trans %}texte_btn_supprimer{% endtrans %}</button>
 </form>
