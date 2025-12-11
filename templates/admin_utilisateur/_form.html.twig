@@ -1,0 +1,5 @@
+{{ form_start(form) }}
+    {{ form_widget(form) }}
+    <button class="btn btn-success mt-3">{% trans %}texte_btn_enregistrer{% endtrans %}</button>
+    <a href="{{ path('app_admin_utilisateur_index') }}" class="btn btn-secondary mt-3">{% trans %}texte_btn_retour{% endtrans %}</a>
+{{ form_end(form) }}

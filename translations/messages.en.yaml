@@ -11,6 +11,8 @@ header_dropdown_souris: "Mouse"
 header_btn_deconnecter: "Log out"
 header_btn_connexion: "Log in"
 header_btn_inscription: "Register"
+header_btn_francais: "Frensh"
+header_btn_anglais: "English"
 
 footer: " All rights reserved."
 
@@ -90,3 +92,34 @@ texte_gestion_souris_nbboutons: "Number of buttons : "
 
 image_url_label: "Filename (e.g. image.jpg)"
 image_url_help: "Make sure this file exists in public/uploads"
+
+titre_compte: "My account"
+texte_compte_information: "My information"
+texte_compte_nom: "Name :"
+texte_compte_prenom: "First name :"
+texte_compte_email: "Email :"
+texte_compte_adresse: "Address :"
+
+texte_modif_compte_valide: "Your information has been successfully updated!"
+
+titre_admin_users: "User management"
+header_dropdown_users: "Users"
+btn_creer_user: "Create a new user"
+admin_user_index_id: "ID"
+admin_user_index_email: "Email"
+admin_user_index_nom_prenom: "Name / First name"
+admin_user_index_roles: "Roles"
+admin_user_index_actions: "Actions"
+confirmer_suppression: "Are you sure you want to delete this user ?"
+admin_user_aucun_user: "No user found"
+
+admin_user_email: "Email Address"
+admin_user_nom: "Name"
+admin_user_prenom: "First name"
+admin_user_adresse: "Postal address"
+admin_user_roles: "Roles / Permissions"
+admin_user_password: "Password"
+admin_user_password_help: "Left blank if you do not want to change the current password"
+
+admin_user_modif: "Change user"
+admin_user_creer: "Create a user"

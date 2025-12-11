@@ -11,6 +11,8 @@ header_dropdown_souris: "Souris"
 header_btn_deconnecter: "Se déconnecter"
 header_btn_connexion: "Connexion"
 header_btn_inscription: "S'inscrire"
+header_btn_francais: "Francais"
+header_btn_anglais: "Anglais"
 
 footer: " Tous droits réservés."
 
@@ -90,3 +92,34 @@ texte_gestion_souris_nbboutons: "Nombre de boutons : "
 
 image_url_label: "Nom du fichier (ex: image.jpg)"
 image_url_help: "Assurez-vous que ce fichier existe dans public/uploads"
+
+titre_compte: "Mon compte"
+texte_compte_information: "Mes informations"
+texte_compte_nom: "Nom :"
+texte_compte_prenom: "Prenom :"
+texte_compte_email: "Email :"
+texte_compte_adresse: "Adresse :"
+
+texte_modif_compte_valide: "Vos informations ont été mises à jour avec succès !"
+
+titre_admin_users: "Gestion des Utilisateurs"
+header_dropdown_users: "Utilisateurs"
+btn_creer_user: "Créer un nouvel utilisateur"
+admin_user_index_id: "ID"
+admin_user_index_email: "Email"
+admin_user_index_nom_prenom: "Nom / Prenom"
+admin_user_index_roles: "Roles"
+admin_user_index_actions: "Actions"
+confirmer_suppression: "Êtes-vous sûr de vouloir supprimer cet utilisateur ?"
+admin_user_aucun_user: "Aucun utilisateur trouvé"
+
+admin_user_email: "Adresse Email"
+admin_user_nom: "Nom"
+admin_user_prenom: "Prénom"
+admin_user_adresse: "Adresse postale"
+admin_user_roles: "Rôles / Permissions"
+admin_user_password: "Mot de passe"
+admin_user_password_help: "Laisser vide si vous ne voulez pas modifier le mot de passe actuel"
+
+admin_user_modif: "Modifier l'utilisateur"
+admin_user_creer: "Créer un utilisateur"

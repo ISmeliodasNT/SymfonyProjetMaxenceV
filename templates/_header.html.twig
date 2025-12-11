@@ -13,18 +13,39 @@
                 <ul class="dropdown-menu">
                     <li><a class="dropdown-item" href="{{ path('app_clavier_index') }}">{% trans %}header_dropdown_clavier{% endtrans %}</a></li>
                     <li><a class="dropdown-item" href="{{ path('app_souris_index') }}">{% trans %}header_dropdown_souris{% endtrans %}</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" href="{{ path('app_admin_utilisateur_index') }}">{% trans %}header_dropdown_users{% endtrans %}</a></li>
                 </ul>
             </div>
         {% endif %}
 
         {% set route = app.request.attributes.get('_route') %}
+        {% set route_params = app.request.attributes.get('_route_params') %}
+
+        <div class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle lien" href="#" data-bs-toggle="dropdown">
+                {{ app.request.locale|upper }}
+            </a>
+            <ul class="dropdown-menu">
+                <li>
+                    <a class="dropdown-item" href="{{ path(route, route_params|merge({'_locale': 'fr'})) }}">
+                        {% trans %}header_btn_francais{% endtrans %}
+                    </a>
+                </li>
+                <li>
+                    <a class="dropdown-item" href="{{ path(route, route_params|merge({'_locale': 'en'})) }}">
+                        {% trans %}header_btn_anglais{% endtrans %}
+                    </a>
+                </li>
+            </ul>
+        </div>
 
         {% if app.user %}
-            <a href="{{ path('app_logout') }}" class="login-btn">{% trans %}header_btn_deconnecter{% endtrans %}</a>
+            <a href="{{ path('app_compte') }}" class="login-btn">{% trans %}titre_compte{% endtrans %}</a>
         {% else %}
             {% if route == 'app_login' %}
                 {% if app.user %}
-                    <a href="{{ path('app_logout') }}" class="login-btn">{% trans %}header_btn_deconnecter{% endtrans %}</a>
+                    <a href="{{ path('app_compte') }}" class="login-btn">{% trans %}titre_compte{% endtrans %}</a>
                 {% else %}
                     <a href="{{ path('app_register') }}" class="login-btn">{% trans %}header_btn_inscription{% endtrans %}</a>
                 {% endif %}
