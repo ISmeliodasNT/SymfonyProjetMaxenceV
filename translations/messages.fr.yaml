@@ -82,8 +82,8 @@ texte_gestion_produit_stock: "Stock :"
 texte_gestion_produit_stock_dispo: "En stock "
 texte_gestion_produit_stock_hs: "Rupture"
 texte_gestion_produit_status: "Statut :"
-texte_gestion_produit_nom: "Nom :"
-texte_gestion_produit_prix: "Prix :"
+texte_gestion_produit_nom: ""
+texte_gestion_produit_prix: ""
 
 texte_gestion_clavier_switch: "Switch :"
 texte_gestion_clavier_langue: "Langue :"
@@ -123,3 +123,13 @@ admin_user_password_help: "Laisser vide si vous ne voulez pas modifier le mot de
 
 admin_user_modif: "Modifier l'utilisateur"
 admin_user_creer: "Créer un utilisateur"
+
+titre_derniers_produits: "Nos dernières nouveautés"
+
+titre_recherche: "Rechercher un produit"
+header_lien_recherche: "Recherche"
+placeholder_recherche: "Tapez le nom d'un clavier ou d'une souris..."
+btn_rechercher: "Rechercher"
+msg_aucun_resultat: "Aucun produit ne correspond à votre recherche."
+msg_produits_trouves: "produit(s) trouvé(s)"
+msg_recherche_en_cours: "Recherche en cours..."

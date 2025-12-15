@@ -38,7 +38,7 @@ class AdminUtilisateurType extends AbstractType
                 'mapped' => false,
                 'required' => $options['is_new'],
                 'attr' => ['autocomplete' => 'new-password'],
-                'help' => 'admin_user_password_help',
+                'help' => $options['is_new'] ? null : 'admin_user_password_help',
             ])
         ;
     }

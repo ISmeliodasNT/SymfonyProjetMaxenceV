@@ -4,6 +4,8 @@
 
         <a href="{{ path('app_liste_produits') }}" class="lien">{% trans %}header_lien_produits{% endtrans %}</a>
 
+        <a href="{{ path('app_search') }}" class="lien">{% trans %}header_lien_recherche{% endtrans %}</a>
+
         {% if is_granted('ROLE_ADMIN') %}
             <div class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">

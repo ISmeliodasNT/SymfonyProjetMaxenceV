@@ -82,8 +82,8 @@ texte_gestion_produit_stock: "Stock :"
 texte_gestion_produit_stock_dispo: "In stock "
 texte_gestion_produit_stock_hs: "Out of stock"
 texte_gestion_produit_status: "Statut :"
-texte_gestion_produit_nom: "Name :"
-texte_gestion_produit_prix: "Price :"
+texte_gestion_produit_nom: ""
+texte_gestion_produit_prix: ""
 
 texte_gestion_clavier_switch: "Switch :"
 texte_gestion_clavier_langue: "Language :"
@@ -123,3 +123,13 @@ admin_user_password_help: "Left blank if you do not want to change the current p
 
 admin_user_modif: "Change user"
 admin_user_creer: "Create a user"
+
+titre_derniers_produits: "Our latest arrivals"
+
+titre_recherche: "Search products"
+header_lien_recherche: "Search"
+placeholder_recherche: "Type a keyboard or mouse name..."
+btn_rechercher: "Search"
+msg_aucun_resultat: "No products found matching your search."
+msg_produits_trouves: "product(s) found"
+msg_recherche_en_cours: "Search in progress..."

@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% trans %}header_lien_recherche{% endtrans %}{% endblock %}
+
+{% block body %}
+<div class="container mt-4">
+    <h1>{% trans %}titre_recherche{% endtrans %}</h1>
+
+    {{ component('RechercheProduit') }}
+
+</div>
+{% endblock %}

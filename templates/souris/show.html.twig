@@ -57,7 +57,7 @@
                             <div class="d-flex flex-wrap gap-3">
                                 {% for image in souri.images %}
                                     <div class="card">
-                                        <img src="{{ asset('uploads/' ~ souri.url) }}" 
+                                        <img src="{{ asset('uploads/' ~ image.url) }}" 
                                              alt="Image du clavier" 
                                              class="img-fluid rounded"
                                              style="max-width: 200px; max-height: 200px; object-fit: cover;"

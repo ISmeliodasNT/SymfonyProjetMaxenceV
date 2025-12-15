@@ -1,0 +1,54 @@
+<div {{ attributes }}>
+
+    <div class="mb-5 mt-4">
+        <div class="input-group">
+            <input type="text" 
+                   data-model="query"
+                   class="form-control form-control-lg" 
+                   placeholder="{{ 'placeholder_recherche'|trans }}"
+                   value="{{ query }}">
+            <button class="btn btn-primary" type="button">
+                {% trans %}btn_rechercher{% endtrans %}
+            </button>
+        </div>
+        
+        <div data-loading class="text-muted small mt-1">{% trans %}msg_recherche_en_cours{% endtrans %}</div>
+    </div>
+
+    {% set products = this.products %}
+
+    {% if products is empty %}
+        <div class="alert alert-info text-center">
+            {% trans %}msg_aucun_resultat{% endtrans %}
+        </div>
+    {% else %}
+        
+        <p class="text-muted mb-4">
+            {{ products|length }} {% trans %}msg_produits_trouves{% endtrans %}
+        </p>
+
+        <div class="produits-container">
+            {% for product in products %}
+                {% set type = product.getType()|default('clavier') %} 
+
+                <a href="{{ path('app_' ~ type ~ '_affichage', {'id': product.id}) }}" class="lien-carte">
+                    <div class="produit-card">
+                        <h3>{{ product.marque }}</h3>
+                        
+                        {% if product.images is empty %}
+                            <div class="mb-2"><span class="text-danger">{% trans %}texte_warning_aucune_img2{% endtrans %}</span></div>
+                        {% else %}
+                            {% set image1 = product.images[0] %}
+                            <div class="image-wrapper">
+                                <img src="{{ asset('uploads/' ~ image1.url) }}" alt="{{ product.nom }}" class="img-main">
+                            </div>
+                        {% endif %}
+
+                        <p class="mt-2">{{ product.nom }}</p>
+                        <p class="fw-bold">{{ product.prix }} €</p>
+                    </div>
+                </a>
+            {% endfor %}
+        </div>
+    {% endif %}
+</div>

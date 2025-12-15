@@ -4,9 +4,49 @@
 
 {% block body %}
 
-            <main>
-                <h2>{% trans %}titre_daccueil1{% endtrans %}</h2>
-                <p>{% trans %}description_accueil{% endtrans %}</p>
-            </main>
+    <main>
+        <div class="text-center mb-5">
+            <h2>{% trans %}titre_daccueil1{% endtrans %}</h2>
+            <p class="lead">{% trans %}description_accueil{% endtrans %}</p>
+        </div>
+
+        <hr>
+
+        <h3 class="mb-4">{% trans %}titre_derniers_produits{% endtrans %}</h3>
+        <div class="produits-container">
+            {% for product in products %}
+                <a href="{{ path('app_' ~ product.type ~ '_affichage', {'id': product.id}) }}" class="lien-carte">
+                    <div class="produit-card">
+                        <h3>{{ product.marque }}</h3>
+                        {% if product.images is empty %}
+                            <div class="mb-2">
+                                <span class="text-danger">{% trans %}texte_warning_aucun_img{% endtrans %}</span>
+                            </div>
+                        {% else %}
+                            {% set image1 = product.images[0] %}
+                            {% set image2 = product.images[1] ?? null %}
+                            <div class="image-wrapper">
+                                <img src="{{ asset('uploads/' ~ image1.url) }}" 
+                                     alt="{{ product.nom }}"
+                                     class="img-main"
+                                >
+                                {% if image2 %}
+                                    <img src="{{ asset('uploads/' ~ image2.url) }}" 
+                                         alt="{{ product.nom }} hover"
+                                         class="img-hover"
+                                    >
+                                {% endif %}
+                            </div>
+                        {% endif %}
+                        <p class="mt-2">{{ product.nom }}</p>
+                        <p>{% trans %}texte_gestion_produit_prix{% endtrans %} {{ product.prix }} €</p>
+                    </div>
+                </a>
+            {% else %}
+                <p>Aucun produit pour le moment.</p>
+            {% endfor %}
+        </div>
+
+    </main>
 
 {% endblock %}

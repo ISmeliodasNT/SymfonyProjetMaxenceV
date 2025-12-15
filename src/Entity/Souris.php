@@ -37,4 +37,9 @@ class Souris extends Produit
 
         return $this;
     }
+
+    public function getType(): string
+    {
+        return 'souris';
+    }
 }

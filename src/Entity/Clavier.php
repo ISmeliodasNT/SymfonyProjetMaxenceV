@@ -37,4 +37,9 @@ class Clavier extends Produit
 
         return $this;
     }
+
+    public function getType(): string
+    {
+        return 'clavier';
+    }
 }
