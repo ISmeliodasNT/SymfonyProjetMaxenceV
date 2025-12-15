@@ -15,24 +15,34 @@
 
     <h3>{% trans %}titre_form{% endtrans %}</h3>
     
-    <div id="images-wrapper" 
-         class="row"
-         data-prototype="{{ form_widget(form.images.vars.prototype)|e('html_attr') }}"
-         data-index="{{ form.images|length }}">
-            {% for imageField in form.images %}
-            <div class="col-md-4 image-item mb-3">
-                <div class="card p-3 bg-light">
-                    {{ form_errors(imageField) }}
-                    {{ form_widget(imageField) }}
-                    <button type="button" class="btn btn-danger btn-sm mt-2 remove-image-btn">{% trans %}texte_btn_supprimer_img{% endtrans %}</button>
-                </div>
-            </div>
-        {% endfor %}
-    </div>
+    <div data-controller="collection"
+        data-collection-index-value="{{ form.images|length }}"
+        data-collection-prototype-value="{{ form_widget(form.images.vars.prototype)|e('html_attr') }}"
+        data-collection-delete-label-value="{{ 'texte_btn_supprimer_img'|trans }}">
 
-    <button type="button" class="btn btn-outline-primary mb-4" id="add-image-btn">
-        {% trans %}texte_btn_ajouter_img{% endtrans %}
-    </button>
+        <div class="row" data-collection-target="wrapper">
+            {% for imageField in form.images %}
+                <div class="col-md-4 image-item mb-3">
+                    <div class="card p-3 bg-light">
+                        {{ form_errors(imageField) }}
+                        {{ form_widget(imageField) }}
+                        <button type="button" 
+                                class="btn btn-danger btn-sm mt-2" 
+                                data-action="collection#remove">
+                            {% trans %}texte_btn_supprimer_img{% endtrans %}
+                        </button>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+        <button type="button" 
+                class="btn btn-outline-primary mb-4" 
+                data-action="collection#add">
+            {% trans %}texte_btn_ajouter_img{% endtrans %}
+        </button>
+
+    </div>
 
     {% do form.images.setRendered() %}
 
@@ -40,40 +50,4 @@
         <button class="btn btn-primary">{{ button_label|default('texte_btn_enregistrer'|trans) }}</button>
     </div>
 
-    {{ form_rest(form) }}
-
 {{ form_end(form) }}
-
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const wrapper = document.querySelector('#images-wrapper');
-        const addButton = document.querySelector('#add-image-btn');
-        
-        addButton.addEventListener('click', function(e) {
-            e.preventDefault();
-            const prototype = wrapper.dataset.prototype;
-            const index = wrapper.dataset.index;
-            
-            const newForm = prototype.replace(/__name__/g, index);
-            
-            const item = document.createElement('div');
-            item.classList.add('col-md-4', 'image-item', 'mb-3');
-            item.innerHTML = `
-                <div class="card p-3 bg-light">
-                    ${newForm}
-                    <button type="button" class="btn btn-danger btn-sm mt-2 remove-image-btn">{{ 'texte_btn_supprimer_img'|trans }}</button>
-                </div>
-            `;
-            
-            wrapper.appendChild(item);
-            wrapper.dataset.index++;
-        });
-
-        wrapper.addEventListener('click', function(e) {
-            if (e.target && e.target.classList.contains('remove-image-btn')) {
-                e.preventDefault();
-                e.target.closest('.image-item').remove();
-            }
-        });
-    });
-</script>

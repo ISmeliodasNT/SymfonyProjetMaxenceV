@@ -2,8 +2,11 @@
 
 {% block title %}{% trans %}titre_modif_clavier{% endtrans %}{% endblock %}
 
-{% block body %}
+{% block metas %}
+    <meta name="turbo-cache-control" content="no-cache">
+{% endblock %}
 
+{% block body %}
     {% if not is_granted('ROLE_ADMIN') %}
         <div>{% trans %}msg_acces_page_invalide{% endtrans %}</div>
     {% else %}
