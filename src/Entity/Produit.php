@@ -181,7 +181,6 @@ class Produit
         return $this;
     }
     
-    // Petite méthode utilitaire pour savoir si c'est supprimé
     public function isSupprimeLe(): bool
     {
         return $this->supprimeLe !== null;

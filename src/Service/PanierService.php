@@ -16,32 +16,28 @@ class PanierService
         $this->produitRepository = $produitRepository;
     }
 
-    public function ajouter(int $id, int $quantite = 1): bool // <-- On change le type de retour
+    public function ajouter(int $id, int $quantite = 1): bool
     {
         $session = $this->requestStack->getSession();
         $panier = $session->get('panier', []);
 
-        // 1. On récupère le produit pour connaître son stock réel
         $produit = $this->produitRepository->find($id);
 
         if (!$produit) {
-            return false; // Produit n'existe pas
+            return false; 
         }
 
-        // 2. On calcule la quantité future
         $quantiteActuelle = $panier[$id] ?? 0;
         $quantiteFuture = $quantiteActuelle + $quantite;
 
-        // 3. VÉRIFICATION DU STOCK
         if ($quantiteFuture > $produit->getStock()) {
-            return false; // Pas assez de stock ! On arrête tout.
+            return false; 
         }
 
-        // 4. Si c'est bon, on sauvegarde
         $panier[$id] = $quantiteFuture;
         $session->set('panier', $panier);
 
-        return true; // Succès
+        return true; 
     }
 
     public function diminuer(int $id): void
@@ -86,7 +82,6 @@ class PanierService
         foreach ($panier as $id => $quantite) {
             $produit = $this->produitRepository->find($id);
 
-            // On vérifie si le produit existe ET s'il n'est pas supprimé
             if ($produit && !$produit->isSupprimeLe()) {
                 $donneesPanier[] = [
                     'produit' => $produit,
@@ -94,8 +89,7 @@ class PanierService
                     'totalLigne' => $produit->getPrix() * $quantite
                 ];
             } else {
-                // OPTIONNEL : Si le produit a été supprimé entre temps,
-                // on le retire automatiquement du panier de l'utilisateur pour nettoyer
+
                 $this->supprimer($id);
             }
         }

@@ -28,21 +28,16 @@ class PanierController extends AbstractController
     {
         $quantite = (int) $request->request->get('quantite', 1);
         
-        // On tente d'ajouter et on récupère le résultat (vrai ou faux)
         $succes = $panierService->ajouter($id, $quantite);
 
-        // SI C'EST DE L'AJAX (Stimulus)
         if ($request->isXmlHttpRequest() || $request->headers->get('Accept') === 'application/json') {
              
-             // CAS D'ERREUR DE STOCK
              if (!$succes) {
-                 // On renvoie un code 400 (Bad Request) avec un message
                  return new JsonResponse([
                      'erreur' => 'Stock insuffisant ! Vous ne pouvez pas ajouter plus de produits que ce que nous avons en réserve.'
                  ], 400); 
              }
 
-             // CAS DE SUCCÈS (Code existant inchangé)
              $panier = $panierService->obtenirPanierComplet();
              $ligneActuelle = null;
              foreach($panier as $item) {
@@ -60,7 +55,6 @@ class PanierController extends AbstractController
              ]);
         }
 
-        // SI CE N'EST PAS DE L'AJAX (Redirection classique)
         if (!$succes) {
             $this->addFlash('danger', 'Stock insuffisant pour cet article.');
         }
@@ -84,7 +78,7 @@ class PanierController extends AbstractController
              }
 
              return new JsonResponse([
-                 'supprime' => $ligneActuelle === null, // Dit au JS si la ligne a disparu (qte = 0)
+                 'supprime' => $ligneActuelle === null, 
                  'nouvelleQuantite' => $ligneActuelle ? $ligneActuelle['quantite'] : 0,
                  'nouveauTotalLigne' => $ligneActuelle ? number_format($ligneActuelle['totalLigne'], 2, ',', ' ') : '0,00',
                  'nouveauTotalGlobal' => number_format($panierService->obtenirTotal(), 2, ',', ' '),

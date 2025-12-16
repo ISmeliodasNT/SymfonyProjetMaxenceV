@@ -27,9 +27,6 @@
         {% if app.user %}
             <a href="{{ path('app_panier_index') }}" class="lien position-relative">
                 {% trans %}header_lien_panier{% endtrans %}
-                
-                {# (Optionnel) Badge si vous voulez le nombre d'articles #}
-                {# Il faudrait injecter le CartService globalement ou utiliser une variable de session #}
             </a>
         {% endif %}
 

@@ -73,11 +73,6 @@ final class SourisController extends AbstractController
     {
         if ($this->isCsrfTokenValid('delete'.$souri->getId(), $request->request->get('_token'))) {
             
-            // AVANT (Suppression physique - Dangereux) :
-            // $entityManager->remove($clavier);
-            
-            // MAINTENANT (Soft Delete - Sécurisé) :
-            // On le marque comme supprimé maintenant
             $souri->setSupprimeLe(new \DateTimeImmutable());
             
             $entityManager->flush();

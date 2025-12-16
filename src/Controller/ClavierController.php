@@ -72,12 +72,6 @@ final class ClavierController extends AbstractController
     public function delete(Request $request, Clavier $clavier, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$clavier->getId(), $request->request->get('_token'))) {
-            
-            // AVANT (Suppression physique - Dangereux) :
-            // $entityManager->remove($clavier);
-            
-            // MAINTENANT (Soft Delete - Sécurisé) :
-            // On le marque comme supprimé maintenant
             $clavier->setSupprimeLe(new \DateTimeImmutable());
             
             $entityManager->flush();

@@ -3,7 +3,7 @@
 {% block title %}{% trans %}titre_panier{% endtrans %}{% endblock %}
 
 {% block body %}
-<div class="container mt-5" data-controller="panier"> {# On branche le contrôleur ici #}
+<div class="container mt-5" data-controller="panier">
     
     <h1>{% trans %}titre_panier{% endtrans %}</h1>
 
@@ -47,17 +47,14 @@
                         <td>{{ item.produit.prix|number_format(2, ',', ' ') }} €</td>
                         
                         <td class="text-center">
-                            {# Bouton MOINS #}
                             <a href="{{ path('app_panier_diminuer', {'id': item.produit.id}) }}" 
                                class="btn btn-sm btn-outline-secondary"
                                data-action="click->panier#diminuer">
                                 -
                             </a>
                             
-                            {# Cible pour la quantité #}
                             <span class="mx-2" data-panier-target="quantite">{{ item.quantite }}</span>
                             
-                            {# Bouton PLUS #}
                             <a href="{{ path('app_panier_ajouter', {'id': item.produit.id}) }}" 
                                class="btn btn-sm btn-outline-secondary"
                                data-action="click->panier#augmenter">
@@ -65,13 +62,11 @@
                             </a>
                         </td>
                         
-                        {# Cible pour le total de la ligne #}
                         <td class="fw-bold" data-panier-target="totalLigne">
                             {{ item.totalLigne|number_format(2, ',', ' ') }} €
                         </td>
                         
                         <td>
-                            {# Bouton SUPPRIMER #}
                             <a href="{{ path('app_panier_supprimer', {'id': item.produit.id}) }}" 
                                class="btn btn-sm btn-danger"
                                data-action="click->panier#supprimer">
@@ -84,7 +79,6 @@
                 <tfoot>
                     <tr>
                         <td colspan="3" class="text-end fw-bold">TOTAL :</td>
-                        {# Cible pour le total global #}
                         <td class="fw-bold fs-5" data-panier-target="totalGlobal">
                             {{ total|number_format(2, ',', ' ') }} €
                         </td>
