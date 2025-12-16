@@ -1,0 +1,108 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% trans %}titre_panier{% endtrans %}{% endblock %}
+
+{% block body %}
+<div class="container mt-5" data-controller="panier"> {# On branche le contrôleur ici #}
+    
+    <h1>{% trans %}titre_panier{% endtrans %}</h1>
+
+    {% if panier is empty %}
+        <div class="alert alert-info text-center py-5">
+            <h3>{% trans %}msg_panier_vide{% endtrans %}</h3>
+            <a href="{{ path('app_liste_produits') }}" class="btn btn-primary">
+                {% trans %}btn_retour_boutique{% endtrans %}
+            </a>
+        </div>
+    {% else %}
+        <div class="table-responsive">
+            <table class="table table-striped align-middle">
+                <thead>
+                    <tr>
+                        <th>Produit</th>
+                        <th>Prix unitaire</th>
+                        <th class="text-center">Quantité</th>
+                        <th>Total</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in panier %}
+                    <tr>
+                        <td>
+                            <div class="d-flex align-items-center">
+                                {% if item.produit.images is not empty %}
+                                    <img src="{{ asset('uploads/' ~ item.produit.images[0].url) }}" 
+                                         alt="{{ item.produit.nom }}" 
+                                         style="width: 50px; height: 50px; object-fit: cover; margin-right: 10px;"
+                                         class="rounded">
+                                {% endif %}
+                                
+                                <div>
+                                    <div class="fw-bold">{{ item.produit.marque }}</div>
+                                    {{ item.produit.nom }}
+                                </div>
+                            </div>
+                        </td>
+                        <td>{{ item.produit.prix|number_format(2, ',', ' ') }} €</td>
+                        
+                        <td class="text-center">
+                            {# Bouton MOINS #}
+                            <a href="{{ path('app_panier_diminuer', {'id': item.produit.id}) }}" 
+                               class="btn btn-sm btn-outline-secondary"
+                               data-action="click->panier#diminuer">
+                                -
+                            </a>
+                            
+                            {# Cible pour la quantité #}
+                            <span class="mx-2" data-panier-target="quantite">{{ item.quantite }}</span>
+                            
+                            {# Bouton PLUS #}
+                            <a href="{{ path('app_panier_ajouter', {'id': item.produit.id}) }}" 
+                               class="btn btn-sm btn-outline-secondary"
+                               data-action="click->panier#augmenter">
+                                +
+                            </a>
+                        </td>
+                        
+                        {# Cible pour le total de la ligne #}
+                        <td class="fw-bold" data-panier-target="totalLigne">
+                            {{ item.totalLigne|number_format(2, ',', ' ') }} €
+                        </td>
+                        
+                        <td>
+                            {# Bouton SUPPRIMER #}
+                            <a href="{{ path('app_panier_supprimer', {'id': item.produit.id}) }}" 
+                               class="btn btn-sm btn-danger"
+                               data-action="click->panier#supprimer">
+                                <i class="bi bi-trash"></i> X
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="3" class="text-end fw-bold">TOTAL :</td>
+                        {# Cible pour le total global #}
+                        <td class="fw-bold fs-5" data-panier-target="totalGlobal">
+                            {{ total|number_format(2, ',', ' ') }} €
+                        </td>
+                        <td></td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+
+        <div class="d-flex justify-content-between mt-4">
+            <a href="{{ path('app_liste_produits') }}" class="btn btn-secondary">
+                {% trans %}btn_continuer_achats{% endtrans %}
+            </a>
+            
+            <button class="btn btn-success btn-lg">
+                {% trans %}btn_passer_commande{% endtrans %}
+            </button>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

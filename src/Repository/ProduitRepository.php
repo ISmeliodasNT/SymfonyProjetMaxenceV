@@ -20,6 +20,7 @@ class ProduitRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('p')
             ->andWhere('p.nom LIKE :query')
+            ->andWhere('p.supprimeLe IS NULL')
             ->setParameter('query', '%' . $query . '%')
             ->orderBy('p.id', 'DESC')
             ->getQuery()

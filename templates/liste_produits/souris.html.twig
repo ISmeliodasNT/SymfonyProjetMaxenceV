@@ -61,7 +61,21 @@
                     <li class="mb-2"><strong>{% trans %}texte_gestion_souris_nbboutons{% endtrans %}</strong> {{ souris.NbBoutons }}</li>
                 </ul>
                 <div class="mt-4 d-flex gap-2">
-                    {#bouton panier a ajouter#}
+                    <div class="mt-4 d-flex gap-2">
+                    <div class="mt-4">
+                        {% if app.user %}
+                            <form action="{{ path('app_panier_ajouter', {'id': souris.id}) }}" method="post" class="d-flex align-items-center gap-2">
+                                <input type="number" name="quantite" value="1" min="1" max="{{ souris.stock }}" class="form-control" style="width: 80px;">
+                                <button type="submit" class="btn btn-primary">
+                                    {% trans %}btn_ajouter_panier{% endtrans %}
+                                </button>
+                            </form>
+                        {% else %}
+                            <a href="{{ path('app_login') }}" class="btn btn-outline-primary">
+                                Connectez-vous pour acheter
+                            </a>
+                        {% endif %}
+                    </div>
                 </div>
             </div>
         </div>

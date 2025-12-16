@@ -18,7 +18,7 @@ final class SourisController extends AbstractController
     public function index(SourisRepository $sourisRepository): Response
     {
         return $this->render('souris/index.html.twig', [
-            'souris' => $sourisRepository->findAll(),
+            'souris' => $sourisRepository->findBy(['supprimeLe' => null]),
         ]);
     }
 
@@ -71,12 +71,21 @@ final class SourisController extends AbstractController
     #[Route('/{id}', name: 'app_souris_delete', methods: ['POST'])]
     public function delete(Request $request, Souris $souri, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$souri->getId(), $request->getPayload()->getString('_token'))) {
-            $entityManager->remove($souri);
+        if ($this->isCsrfTokenValid('delete'.$souri->getId(), $request->request->get('_token'))) {
+            
+            // AVANT (Suppression physique - Dangereux) :
+            // $entityManager->remove($clavier);
+            
+            // MAINTENANT (Soft Delete - Sécurisé) :
+            // On le marque comme supprimé maintenant
+            $souri->setSupprimeLe(new \DateTimeImmutable());
+            
             $entityManager->flush();
+            
+            $this->addFlash('success', 'Le produit a été archivé avec succès.');
         }
 
-        return $this->redirectToRoute('app_souris_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_souris_index');
     }
 
     #[Route('/{id}/affichage', name: 'app_souris_affichage', methods: ['GET'])]

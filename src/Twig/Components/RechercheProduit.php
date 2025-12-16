@@ -22,7 +22,7 @@ class RechercheProduit
     public function getProducts(): array
     {
         if (empty($this->query)) {
-            return $this->produitRepository->findBy([], ['id' => 'DESC']);
+            return $this->produitRepository->findBy(['supprimeLe' => null], ['id' => 'DESC']);
         }
         return $this->produitRepository->findByName($this->query);
     }

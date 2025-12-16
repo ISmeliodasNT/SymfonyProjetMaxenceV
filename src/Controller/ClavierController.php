@@ -18,7 +18,7 @@ final class ClavierController extends AbstractController
     public function index(ClavierRepository $clavierRepository): Response
     {
         return $this->render('clavier/index.html.twig', [
-            'claviers' => $clavierRepository->findAll(),
+            'claviers' => $clavierRepository->findBy(['supprimeLe' => null]),
         ]);
     }
 
@@ -71,12 +71,21 @@ final class ClavierController extends AbstractController
     #[Route('/{id}', name: 'app_clavier_delete', methods: ['POST'])]
     public function delete(Request $request, Clavier $clavier, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$clavier->getId(), $request->getPayload()->getString('_token'))) {
-            $entityManager->remove($clavier);
+        if ($this->isCsrfTokenValid('delete'.$clavier->getId(), $request->request->get('_token'))) {
+            
+            // AVANT (Suppression physique - Dangereux) :
+            // $entityManager->remove($clavier);
+            
+            // MAINTENANT (Soft Delete - Sécurisé) :
+            // On le marque comme supprimé maintenant
+            $clavier->setSupprimeLe(new \DateTimeImmutable());
+            
             $entityManager->flush();
+            
+            $this->addFlash('success', 'Le produit a été archivé avec succès.');
         }
 
-        return $this->redirectToRoute('app_clavier_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_clavier_index');
     }
 
     #[Route('/{id}/affichage', name: 'app_clavier_affichage', methods: ['GET'])]

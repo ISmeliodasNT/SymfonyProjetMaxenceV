@@ -13,8 +13,12 @@ final class ListeProduitsController extends AbstractController
     #[Route('/liste/produits', name: 'app_liste_produits')]
     public function index(ClavierRepository $clavierRepository, SourisRepository $sourisRepository): Response
     {
-        $claviers = $clavierRepository->findAll();
-        $souris = $sourisRepository->findAll();
+        $claviers = $clavierRepository->findBy(
+            ['supprimeLe' => null]
+        );
+        $souris = $sourisRepository->findBy(
+            ['supprimeLe' => null]
+        );
 
         return $this->render('liste_produits/index.html.twig', [
             'claviers' => $claviers,

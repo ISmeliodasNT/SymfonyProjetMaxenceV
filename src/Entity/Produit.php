@@ -165,4 +165,25 @@ class Produit
 
         return $this;
     }
+
+    #[ORM\Column(nullable: true)]
+    private ?\DateTimeImmutable $supprimeLe = null;
+
+    public function getSupprimeLe(): ?\DateTimeImmutable
+    {
+        return $this->supprimeLe;
+    }
+
+    public function setSupprimeLe(?\DateTimeImmutable $supprimeLe): static
+    {
+        $this->supprimeLe = $supprimeLe;
+
+        return $this;
+    }
+    
+    // Petite méthode utilitaire pour savoir si c'est supprimé
+    public function isSupprimeLe(): bool
+    {
+        return $this->supprimeLe !== null;
+    }
 }
