@@ -3,10 +3,13 @@
 namespace App\Entity;
 
 use App\Repository\UtilisateurRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use App\Entity\Address;
 
 #[ORM\Entity(repositoryClass: UtilisateurRepository::class)]
 #[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_EMAIL', fields: ['email'])]
@@ -39,8 +42,30 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255)]
     private ?string $prenom = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $adresse = null;
+    /**
+     * @var Collection<int, Address>
+     */
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Address::class, orphanRemoval: true, cascade: ['persist'])]
+    private Collection $adresses;
+
+    /**
+     * @var Collection<int, CreditCard>
+     */
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: CreditCard::class, orphanRemoval: true, cascade: ['persist'])]
+    private Collection $creditCards;
+
+    /**
+     * @var Collection<int, Commande>
+     */
+    #[ORM\OneToMany(targetEntity: Commande::class, mappedBy: 'user')]
+    private Collection $commandes;
+
+    public function __construct()
+    {
+        $this->adresses = new ArrayCollection();
+        $this->creditCards = new ArrayCollection();
+        $this->commandes = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -147,14 +172,92 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getAdresse(): ?string
+    /**
+     * @return Collection<int, Address>
+     */
+    public function getAdresses(): Collection
     {
-        return $this->adresse;
+        return $this->adresses;
     }
 
-    public function setAdresse(string $adresse): static
+    public function addAdress(Address $adress): static
     {
-        $this->adresse = $adresse;
+        if (!$this->adresses->contains($adress)) {
+            $this->adresses->add($adress);
+            $adress->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAdress(Address $adress): static
+    {
+        if ($this->adresses->removeElement($adress)) {
+            // set the owning side to null (unless already changed)
+            if ($adress->getUser() === $this) {
+                $adress->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, CreditCard>
+     */
+    public function getCreditCards(): Collection
+    {
+        return $this->creditCards;
+    }
+
+    public function addCreditCard(CreditCard $creditCard): static
+    {
+        if (!$this->creditCards->contains($creditCard)) {
+            $this->creditCards->add($creditCard);
+            $creditCard->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCreditCard(CreditCard $creditCard): static
+    {
+        if ($this->creditCards->removeElement($creditCard)) {
+            // set the owning side to null (unless already changed)
+            if ($creditCard->getUser() === $this) {
+                $creditCard->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Commande>
+     */
+    public function getCommandes(): Collection
+    {
+        return $this->commandes;
+    }
+
+    public function addCommande(Commande $commande): static
+    {
+        if (!$this->commandes->contains($commande)) {
+            $this->commandes->add($commande);
+            $commande->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCommande(Commande $commande): static
+    {
+        if ($this->commandes->removeElement($commande)) {
+            // set the owning side to null (unless already changed)
+            if ($commande->getUser() === $this) {
+                $commande->setUser(null);
+            }
+        }
 
         return $this;
     }

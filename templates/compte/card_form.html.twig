@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ titre }}{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <h1>{{ titre }}</h1>
+    <div class="row">
+        <div class="col-md-6">
+            {{ form_start(form, {'attr': {'data-turbo': 'false'}}) }}
+    
+                {{ form_errors(form) }}
+                
+                {# N'oubliez pas d'utiliser form_row pour voir les erreurs spécifiques #}
+                {{ form_row(form.number) }}
+                {{ form_row(form.expirationDate) }}
+                {{ form_row(form.cvv) }}
+
+                <button type="submit" class="btn btn-success mt-3">Enregistrer la carte</button>
+                <a href="{{ path('app_compte') }}" class="btn btn-secondary mt-3">Annuler</a>
+
+            {{ form_end(form) }}
+        </div>
+    </div>
+</div>
+{% endblock %}

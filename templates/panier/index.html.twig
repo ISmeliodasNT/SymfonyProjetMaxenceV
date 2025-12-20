@@ -94,7 +94,9 @@
             </a>
             
             <button class="btn btn-success btn-lg">
-                {% trans %}btn_passer_commande{% endtrans %}
+                <a href="{{ path('app_commande_recap') }}" class="btn btn-success btn-lg">
+                    {% trans %}btn_passer_commande{% endtrans %}
+                </a>
             </button>
         </div>
     {% endif %}

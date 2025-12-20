@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Commande confirmée{% endblock %}
+
+{% block body %}
+<div class="container mt-5 text-center">
+    <div class="card shadow-sm border-0 p-5 mx-auto" style="max-width: 600px;">
+        <div class="text-success mb-4">
+            <i class="bi bi-check-circle-fill" style="font-size: 4rem;"></i>
+        </div>
+        
+        <h1 class="mb-3">Merci pour votre commande !</h1>
+        <p class="lead">Votre commande <strong>#{{ commande.id }}</strong> a bien été enregistrée.</p>
+        
+        <hr class="my-4">
+        
+        <p>Un récapitulatif a été envoyé à votre adresse email : <strong>{{ app.user.email }}</strong></p>
+        
+        <div class="d-flex justify-content-center gap-3 mt-4">
+            <a href="{{ path('app_compte') }}" class="btn btn-outline-primary">Voir mon compte</a>
+            <a href="{{ path('app_liste_produits') }}" class="btn btn-primary">Continuer mes achats</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

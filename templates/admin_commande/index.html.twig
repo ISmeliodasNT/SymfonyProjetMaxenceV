@@ -1,0 +1,82 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gestion des Commandes{% endblock %}
+
+{% block body %}
+
+    {% if not is_granted('ROLE_ADMIN') %}
+        <div>{% trans %}msg_acces_page_invalide{% endtrans %}</div>
+    {% else %}
+
+    <div class="container-fluid mt-4">
+        <h1 class="mb-4">Administration des Commandes</h1>
+
+        <div class="card shadow">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>ID</th>
+                                <th>Date</th>
+                                <th>Client</th>
+                                <th>Total</th>
+                                <th>État Actuel</th>
+                                <th>Modifier l'état</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for commande in commandes %}
+                                <tr>
+                                    <td>#{{ commande.id }}</td>
+                                    <td>{{ commande.dateCommande|date('d/m/Y H:i') }}</td>
+                                    <td>
+                                        {{ commande.user.email }}<br>
+                                        <small class="text-muted">{{ commande.user.nom }} {{ commande.user.prenom }}</small>
+                                    </td>
+                                    <td class="fw-bold">{{ commande.total|number_format(2, ',', ' ') }} €</td>
+                                    <td>
+                                        {# Badge de couleur selon l'état #}
+                                        {% set color = 'secondary' %}
+                                        {% if commande.etat == 'EN_ATTENTE' %} {% set color = 'warning text-dark' %}
+                                        {% elseif commande.etat == 'PAYEE' %} {% set color = 'info text-dark' %}
+                                        {% elseif commande.etat == 'EXPEDIEE' %} {% set color = 'primary' %}
+                                        {% elseif commande.etat == 'LIVREE' %} {% set color = 'success' %}
+                                        {% elseif commande.etat == 'ANNULEE' %} {% set color = 'danger' %}
+                                        {% endif %}
+                                        
+                                        <span class="badge bg-{{ color }}">{{ commande.etat }}</span>
+                                    </td>
+                                    <td>
+                                        {# Formulaire rapide pour changer le statut #}
+                                        <form action="{{ path('app_admin_commande_status', {'id': commande.id}) }}" method="post" class="d-flex gap-2">
+                                            <select name="etat" class="form-select form-select-sm" style="width: auto;">
+                                                <option value="EN_ATTENTE" {{ commande.etat == 'EN_ATTENTE' ? 'selected' : '' }}>En attente</option>
+                                                <option value="PAYEE" {{ commande.etat == 'PAYEE' ? 'selected' : '' }}>Payée</option>
+                                                <option value="EXPEDIEE" {{ commande.etat == 'EXPEDIEE' ? 'selected' : '' }}>Expédiée</option>
+                                                <option value="LIVREE" {{ commande.etat == 'LIVREE' ? 'selected' : '' }}>Livrée</option>
+                                                <option value="ANNULEE" {{ commande.etat == 'ANNULEE' ? 'selected' : '' }}>Annulée</option>
+                                            </select>
+                                            <button type="submit" class="btn btn-sm btn-outline-dark">OK</button>
+                                        </form>
+                                    </td>
+                                    <td>
+                                        <a href="{{ path('app_admin_commande_show', {'id': commande.id}) }}" class="btn btn-sm btn-primary">
+                                            <i class="bi bi-eye"></i> Voir
+                                        </a>
+                                    </td>
+                                </tr>
+                            {% else %}
+                                <tr>
+                                    <td colspan="7" class="text-center py-4">Aucune commande trouvée.</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,75 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Commande #{{ commande.id }}{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>Commande #{{ commande.id }}</h1>
+        <a href="{{ path('app_commande_index') }}" class="btn btn-outline-secondary">Retour à la liste</a>
+    </div>
+
+    <div class="row">
+        {# INFORMATIONS GÉNÉRALES #}
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-header bg-light fw-bold">Informations</div>
+                <div class="card-body">
+                    <p><strong>Date :</strong> {{ commande.dateCommande|date('d/m/Y H:i') }}</p>
+                    <p><strong>État :</strong> {{ commande.etat }}</p>
+                    <p><strong>Total :</strong> <span class="text-primary fw-bold">{{ commande.total|number_format(2, ',', ' ') }} €</span></p>
+                </div>
+            </div>
+        </div>
+
+        {# ADRESSE DE LIVRAISON #}
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-header bg-light fw-bold">Livraison</div>
+                <div class="card-body">
+                    <p>{{ commande.adresseLivraison.rue }}</p>
+                    <p>{{ commande.adresseLivraison.codePostal }} {{ commande.adresseLivraison.ville }}</p>
+                </div>
+            </div>
+        </div>
+
+        {# MOYEN DE PAIEMENT #}
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-header bg-light fw-bold">Paiement</div>
+                <div class="card-body">
+                    <p>Carte Bancaire</p>
+                    <p>**** **** **** {{ commande.cartePaiement.number|slice(-4) }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {# LISTE DES PRODUITS #}
+    <div class="card mt-4">
+        <div class="card-header bg-dark text-white">Contenu de la commande</div>
+        <ul class="list-group list-group-flush">
+            {% for detail in commande.detailCommandes %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <div class="d-flex align-items-center">
+                        {% if detail.produit.images is not empty %}
+                            <img src="{{ asset('uploads/' ~ detail.produit.images[0].url) }}" 
+                                 alt="{{ detail.produit.nom }}" 
+                                 class="rounded me-3" 
+                                 style="width: 50px; height: 50px; object-fit: cover;">
+                        {% endif %}
+                        <div>
+                            <div class="fw-bold">{{ detail.produit.nom }}</div>
+                            <small class="text-muted">Prix unitaire : {{ detail.prixUnitaire|number_format(2, ',', ' ') }} €</small>
+                        </div>
+                    </div>
+                    <div class="text-end">
+                        <div>x {{ detail.quantite }}</div>
+                        <div class="fw-bold">{{ (detail.prixUnitaire * detail.quantite)|number_format(2, ',', ' ') }} €</div>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endblock %}

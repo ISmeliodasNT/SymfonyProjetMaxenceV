@@ -1,5 +1,61 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn btn-success mt-3">{% trans %}texte_btn_enregistrer{% endtrans %}</button>
-    <a href="{{ path('app_admin_utilisateur_index') }}" class="btn btn-secondary mt-3">{% trans %}texte_btn_retour{% endtrans %}</a>
+    
+    <div class="row">
+        <div class="col-md-6">
+            <h3>Informations Générales</h3>
+            {{ form_row(form.email) }}
+            {{ form_row(form.nom) }}
+            {{ form_row(form.prenom) }}
+            {{ form_row(form.plainPassword, { label: 'Mot de passe' }) }}
+            {{ form_row(form.roles) }}
+        </div>
+
+        <div class="col-md-6">
+            <h3>Adresses</h3>
+            {# SYSTEME STIMULUS POUR LES ADRESSES #}
+            <div data-controller="collection"
+                 data-collection-index-value="{{ form.adresses|length }}"
+                 data-collection-prototype-value="{{ form_widget(form.adresses.vars.prototype)|e('html_attr') }}"
+                 data-collection-delete-label-value="Supprimer l'adresse">
+                
+                <div class="row" data-collection-target="wrapper">
+                    {% for addressField in form.adresses %}
+                        <div class="col-12 image-item mb-2">
+                            <div class="card p-2 bg-light">
+                                {{ form_widget(addressField) }}
+                                <button type="button" class="btn btn-danger btn-sm mt-2" data-action="collection#remove">Supprimer</button>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <button type="button" class="btn btn-sm btn-outline-primary mb-4" data-action="collection#add">+ Ajouter une adresse</button>
+            </div>
+
+            <hr>
+
+            <h3>Cartes Bancaires</h3>
+            {# SYSTEME STIMULUS POUR LES CARTES #}
+            <div data-controller="collection"
+                 data-collection-index-value="{{ form.creditCards|length }}"
+                 data-collection-prototype-value="{{ form_widget(form.creditCards.vars.prototype)|e('html_attr') }}"
+                 data-collection-delete-label-value="Supprimer la carte">
+                
+                <div class="row" data-collection-target="wrapper">
+                    {% for cardField in form.creditCards %}
+                        <div class="col-12 image-item mb-2">
+                            <div class="card p-2 bg-light">
+                                {{ form_widget(cardField) }}
+                                <button type="button" class="btn btn-danger btn-sm mt-2" data-action="collection#remove">Supprimer</button>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <button type="button" class="btn btn-sm btn-outline-primary mb-4" data-action="collection#add">+ Ajouter une carte</button>
+            </div>
+        </div>
+    </div>
+
+    <button class="btn btn-success mt-3">{{ button_label|default('Enregistrer') }}</button>
+    <a href="{{ path('app_admin_utilisateur_index') }}" class="btn btn-secondary mt-3">Retour</a>
+
 {{ form_end(form) }}

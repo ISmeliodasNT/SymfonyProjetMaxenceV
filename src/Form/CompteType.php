@@ -24,9 +24,6 @@ class CompteType extends AbstractType
             ->add('prenom', TextType::class, [
                 'label' => 'texte_compte_prenom',
             ])
-            ->add('adresse', TextType::class, [
-                'label' => 'texte_compte_adresse',
-            ])
         ;
     }
 

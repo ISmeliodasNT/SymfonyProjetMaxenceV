@@ -51,6 +51,7 @@ class Produit
     public function __construct()
     {
         $this->images = new ArrayCollection();
+        $this->detailCommandes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -169,6 +170,12 @@ class Produit
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $supprimeLe = null;
 
+    /**
+     * @var Collection<int, DetailCommande>
+     */
+    #[ORM\OneToMany(targetEntity: DetailCommande::class, mappedBy: 'produit')]
+    private Collection $detailCommandes;
+
     public function getSupprimeLe(): ?\DateTimeImmutable
     {
         return $this->supprimeLe;
@@ -184,5 +191,35 @@ class Produit
     public function isSupprimeLe(): bool
     {
         return $this->supprimeLe !== null;
+    }
+
+    /**
+     * @return Collection<int, DetailCommande>
+     */
+    public function getDetailCommandes(): Collection
+    {
+        return $this->detailCommandes;
+    }
+
+    public function addDetailCommande(DetailCommande $detailCommande): static
+    {
+        if (!$this->detailCommandes->contains($detailCommande)) {
+            $this->detailCommandes->add($detailCommande);
+            $detailCommande->setProduit($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDetailCommande(DetailCommande $detailCommande): static
+    {
+        if ($this->detailCommandes->removeElement($detailCommande)) {
+            // set the owning side to null (unless already changed)
+            if ($detailCommande->getProduit() === $this) {
+                $detailCommande->setProduit(null);
+            }
+        }
+
+        return $this;
     }
 }

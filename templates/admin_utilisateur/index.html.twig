@@ -3,6 +3,11 @@
 {% block title %}{% trans %}titre_admin_users{% endtrans %}{% endblock %}
 
 {% block body %}
+
+    {% if not is_granted('ROLE_ADMIN') %}
+        <div>{% trans %}msg_acces_page_invalide{% endtrans %}</div>
+    {% else %}
+
     <h1>{% trans %}titre_admin_users{% endtrans %}</h1>
 
     <a href="{{ path('app_admin_utilisateur_new') }}" class="btn btn-primary mb-3">
@@ -48,4 +53,5 @@
         {% endfor %}
         </tbody>
     </table>
+    {% endif %}
 {% endblock %}

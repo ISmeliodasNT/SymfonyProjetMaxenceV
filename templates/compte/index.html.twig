@@ -33,8 +33,6 @@
                             </div>
                         </div>
 
-                        {{ form_row(form.adresse) }}
-
                         <div class="mt-3 mb-4">
                             <button type="submit" class="btn btn-success w-100">
                                 {% trans %}texte_btn_maj{% endtrans %}
@@ -42,6 +40,83 @@
                         </div>
 
                     {{ form_end(form) }}
+
+                    <hr class="my-5">
+
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h2>Mes Adresses</h2>
+                        <a href="{{ path('app_compte_adresse_new') }}" class="btn btn-primary">
+                            + Ajouter une adresse
+                        </a>
+                    </div>
+
+                    <div class="row">
+                        {% for address in app.user.adresses %}
+                            <div class="col-md-4 mb-3">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{ address.ville }}</h5>
+                                        <p class="card-text">
+                                            {{ address.rue }}<br>
+                                            {{ address.codePostal }} {{ address.ville }}
+                                        </p>
+                                        
+                                        <div class="d-flex gap-2 mt-3">
+                                            <a href="{{ path('app_compte_adresse_edit', {'id': address.id}) }}" class="btn btn-sm btn-outline-warning">
+                                                Modifier
+                                            </a>
+                                            
+                                            <form method="post" action="{{ path('app_compte_adresse_delete', {'id': address.id}) }}" onsubmit="return confirm('Supprimer cette adresse ?');">
+                                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ address.id) }}">
+                                                <button class="btn btn-sm btn-outline-danger">Supprimer</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% else %}
+                            <p class="text-muted">Aucune adresse enregistrée.</p>
+                        {% endfor %}
+                    </div>
+
+                    <hr class="my-5">
+
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h2>Mes Cartes de paiement</h2>
+                        <a href="{{ path('app_compte_carte_new') }}" class="btn btn-primary">
+                            + Ajouter une carte
+                        </a>
+                    </div>
+
+                    <div class="row">
+                        {% for card in app.user.creditCards %}
+                            <div class="col-md-4 mb-3">
+                                <div class="card h-100 border-primary">
+                                    <div class="card-body">
+                                        <h5 class="card-title text-primary">
+                                            <i class="bi bi-credit-card"></i> Carte Bancaire
+                                        </h5>
+                                        
+                                        {# ASTUCE : On cache les chiffres #}
+                                        <p class="card-text fs-5">
+                                            **** **** **** {{ card.number|slice(-4) }}
+                                        </p>
+                                        
+                                        <p class="text-muted mb-3">
+                                            Expire le : {{ card.expirationDate }}
+                                        </p>
+                                        
+                                        <form method="post" action="{{ path('app_compte_carte_delete', {'id': card.id}) }}" onsubmit="return confirm('Supprimer cette carte ?');">
+                                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ card.id) }}">
+                                            <button class="btn btn-sm btn-outline-danger w-100">Supprimer</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        {% else %}
+                            <p class="text-muted">Aucune carte enregistrée.</p>
+                        {% endfor %}
+                    </div>
 
                     <hr>
 

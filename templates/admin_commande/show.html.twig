@@ -1,0 +1,135 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Admin - Commande #{{ commande.id }}{% endblock %}
+
+{% block body %}
+
+
+    {% if not is_granted('ROLE_ADMIN') %}
+        <div>{% trans %}msg_acces_page_invalide{% endtrans %}</div>
+    {% else %}
+
+    <div class="container mt-4">
+        
+        {# EN-TÊTE AVEC BOUTON RETOUR ET TITRE #}
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1 class="h3">Commande #{{ commande.id }}</h1>
+            <a href="{{ path('app_admin_commande_index') }}" class="btn btn-outline-secondary">
+                <i class="bi bi-arrow-left"></i> Retour à la liste
+            </a>
+        </div>
+
+        <div class="row">
+            
+            {# COLONNE GAUCHE : INFOS CLIENT & COMMANDE #}
+            <div class="col-md-4">
+                
+                {# 1. GESTION DU STATUT #}
+                <div class="card shadow-sm mb-4 border-primary">
+                    <div class="card-header bg-primary text-white fw-bold">État de la commande</div>
+                    <div class="card-body">
+                        <p class="mb-2">Actuel : <strong>{{ commande.etat }}</strong></p>
+                        
+                        <form action="{{ path('app_admin_commande_status', {'id': commande.id}) }}" method="post">
+                            <label class="form-label small text-muted">Changer le statut :</label>
+                            <div class="input-group">
+                                <select name="etat" class="form-select">
+                                    <option value="EN_ATTENTE" {{ commande.etat == 'EN_ATTENTE' ? 'selected' : '' }}>En attente</option>
+                                    <option value="PAYEE" {{ commande.etat == 'PAYEE' ? 'selected' : '' }}>Payée</option>
+                                    <option value="EXPEDIEE" {{ commande.etat == 'EXPEDIEE' ? 'selected' : '' }}>Expédiée</option>
+                                    <option value="LIVREE" {{ commande.etat == 'LIVREE' ? 'selected' : '' }}>Livrée</option>
+                                    <option value="ANNULEE" {{ commande.etat == 'ANNULEE' ? 'selected' : '' }}>Annulée</option>
+                                </select>
+                                <button class="btn btn-primary" type="submit">OK</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                {# 2. INFOS CLIENT (Spécifique Admin) #}
+                <div class="card shadow-sm mb-4">
+                    <div class="card-header bg-light fw-bold">Client</div>
+                    <div class="card-body">
+                        <h5 class="card-title">{{ commande.user.nom|upper }} {{ commande.user.prenom }}</h5>
+                        <p class="mb-1"><a href="mailto:{{ commande.user.email }}">{{ commande.user.email }}</a></p>
+                        <p class="text-muted small">ID Client : {{ commande.user.id }}</p>
+                    </div>
+                </div>
+
+                {# 3. ADRESSE DE LIVRAISON #}
+                <div class="card shadow-sm mb-4">
+                    <div class="card-header bg-light fw-bold">Livraison</div>
+                    <div class="card-body">
+                        <p class="mb-0">
+                            {{ commande.adresseLivraison.rue }}<br>
+                            {{ commande.adresseLivraison.codePostal }} {{ commande.adresseLivraison.ville }}
+                        </p>
+                    </div>
+                </div>
+
+                {# 4. PAIEMENT #}
+                <div class="card shadow-sm mb-4">
+                    <div class="card-header bg-light fw-bold">Paiement</div>
+                    <div class="card-body">
+                        Carte **** **** **** {{ commande.cartePaiement.number|slice(-4) }}
+                    </div>
+                </div>
+
+            </div>
+
+            {# COLONNE DROITE : CONTENU DU PANIER #}
+            <div class="col-md-8">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-dark text-white d-flex justify-content-between">
+                        <span>Contenu ({{ commande.detailCommandes|length }} articles)</span>
+                        <span>Date : {{ commande.dateCommande|date('d/m/Y H:i') }}</span>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle mb-0">
+                            <thead>
+                                <tr>
+                                    <th>Produit</th>
+                                    <th class="text-center">Prix Unitaire</th>
+                                    <th class="text-center">Qté</th>
+                                    <th class="text-end">Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for detail in commande.detailCommandes %}
+                                    <tr>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                {% if detail.produit.images is not empty %}
+                                                    <img src="{{ asset('uploads/' ~ detail.produit.images[0].url) }}" 
+                                                        alt="Img" 
+                                                        class="rounded border me-3"
+                                                        style="width: 40px; height: 40px; object-fit: cover;">
+                                                {% else %}
+                                                    <div class="bg-secondary rounded me-3" style="width: 40px; height: 40px;"></div>
+                                                {% endif %}
+                                                <div>
+                                                    <div class="fw-bold">{{ detail.produit.nom }}</div>
+                                                    <small class="text-muted">Ref: {{ detail.produit.id }}</small>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="text-center">{{ detail.prixUnitaire|number_format(2, ',', ' ') }} €</td>
+                                        <td class="text-center fw-bold">{{ detail.quantite }}</td>
+                                        <td class="text-end">{{ (detail.prixUnitaire * detail.quantite)|number_format(2, ',', ' ') }} €</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                            <tfoot class="table-light">
+                                <tr>
+                                    <td colspan="3" class="text-end fw-bold text-uppercase">Total Commande</td>
+                                    <td class="text-end fw-bold fs-5 text-primary">{{ commande.total|number_format(2, ',', ' ') }} €</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+{% endblock %}
