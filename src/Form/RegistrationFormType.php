@@ -17,31 +17,36 @@ class RegistrationFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('email')
+            ->add('email', null, [
+                'label' => 'label_email'
+            ])
             ->add('plainPassword', PasswordType::class, [
-                                // instead of being set onto the object directly,
-                // this is read and encoded in the controller
                 'mapped' => false,
+                'label' => 'texte_inscription_mdp',
                 'attr' => ['autocomplete' => 'new-password'],
                 'constraints' => [
                     new NotBlank([
-                        'message' => 'Please enter a password',
+                        'message' => 'erreur_mdp_vide',
                     ]),
                     new Length([
                         'min' => 6,
-                        'minMessage' => 'Your password should be at least {{ limit }} characters',
-                        // max length allowed by Symfony for security reasons
+                        'minMessage' => 'erreur_mdp_court',
                         'max' => 4096,
                     ]),
                 ],
             ])
-            ->add('nom')
-            ->add('prenom')
+            ->add('nom', null, [
+                'label' => 'label_nom'
+            ])
+            ->add('prenom', null, [
+                'label' => 'label_prenom'
+            ])
             ->add('agreeTerms', CheckboxType::class, [
-                                'mapped' => false,
+                'mapped' => false,
+                'label' => 'texte_inscription_termes',
                 'constraints' => [
                     new IsTrue([
-                        'message' => 'You should agree to our terms.',
+                        'message' => 'erreur_termes',
                     ]),
                 ],
             ])

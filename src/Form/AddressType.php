@@ -5,7 +5,6 @@ namespace App\Form;
 use App\Entity\Address;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\CountryType; // Optionnel si tu veux gérer les pays
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Length;
@@ -17,32 +16,27 @@ class AddressType extends AbstractType
     {
         $builder
             ->add('rue', TextType::class, [
-                'label' => 'Rue et numéro',
-                'attr' => ['placeholder' => 'Ex: 10 rue de la Paix'],
+                'label' => 'texte_adresse_rue',
+                'attr' => ['placeholder' => 'texte_adresse_exemple_rue'],
                 'constraints' => [
-                    new NotBlank(['message' => 'Veuillez renseigner la rue']),
+                    new NotBlank(['message' => 'texte_adresse_erreur_rue_vide']),
                 ]
             ])
             ->add('codePostal', TextType::class, [
-                'label' => 'Code Postal',
-                'attr' => ['placeholder' => 'Ex: 75000'],
+                'label' => 'texte_adresse_code_postal',
+                'attr' => ['placeholder' => 'texte_adresse_exemple_code_postal'],
                 'constraints' => [
-                    new NotBlank(['message' => 'Le code postal est obligatoire']),
-                    new Length(['min' => 4, 'max' => 10, 'minMessage' => 'Code postal trop court'])
+                    new NotBlank(['message' => 'texte_adresse_erreur_code_postal_vide']),
+                    new Length(['min' => 4, 'max' => 10, 'minMessage' => 'texte_adresse_erreur_code_postal_court'])
                 ]
             ])
             ->add('ville', TextType::class, [
-                'label' => 'Ville',
-                'attr' => ['placeholder' => 'Ex: Paris'],
+                'label' => 'texte_adresse_ville',
+                'attr' => ['placeholder' => 'tests_adresse_exemple_ville'],
                 'constraints' => [
-                    new NotBlank(['message' => 'La ville est obligatoire']),
+                    new NotBlank(['message' => 'texte_adresse_erreur_ville_vide']),
                 ]
             ])
-            // Optionnel : si tu veux ajouter le pays
-            // ->add('pays', CountryType::class, [
-            //     'label' => 'Pays',
-            //     'preferred_choices' => ['FR', 'BE', 'CH', 'CA'],
-            // ])
         ;
     }
 

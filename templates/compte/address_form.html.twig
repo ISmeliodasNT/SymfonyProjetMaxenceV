@@ -12,10 +12,10 @@
                 {{ form_widget(form) }}
                 
                 <button type="submit" class="btn btn-success mt-3">
-                    Enregistrer
+                    {% trans %}texte_btn_enregistrer{% endtrans %}
                 </button>
                 <a href="{{ path('app_compte') }}" class="btn btn-secondary mt-3">
-                    Annuler
+                    {% trans %}btn_annuler{% endtrans %}
                 </a>
             {{ form_end(form) }}
         </div>

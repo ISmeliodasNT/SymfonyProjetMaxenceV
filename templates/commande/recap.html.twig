@@ -1,19 +1,18 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Récapitulatif de la commande{% endblock %}
+{% block title %}{{ 'titre_page_recap'|trans }}{% endblock %}
 
 {% block body %}
 <div class="container mt-5">
-    <h1>Finaliser ma commande</h1>
-    <p class="text-muted">Vérifiez vos articles et choisissez vos informations de livraison.</p>
+    <h1>{{ 'h1_finaliser_commande'|trans }}</h1>
+    <p class="text-muted">{{ 'texte_help_recap'|trans }}</p>
 
     <div class="row mt-4">
         
-        {# COLONNE GAUCHE : LE PANIER #}
         <div class="col-md-7">
             <div class="card shadow-sm border-0 mb-4">
                 <div class="card-header bg-white">
-                    <h5 class="mb-0">Articles à commander ({{ panier|length }})</h5>
+                    <h5 class="mb-0">{{ 'header_articles_count'|trans({'%count%': panier|length}) }}</h5>
                 </div>
                 <ul class="list-group list-group-flush">
                     {% for item in panier %}
@@ -27,36 +26,34 @@
                                 {% endif %}
                                 <div>
                                     <div class="fw-bold">{{ item.produit.marque }} - {{ item.produit.nom }}</div>
-                                    <small class="text-muted">Quantité : {{ item.quantite }}</small>
+                                    <small class="text-muted">{{ 'label_qte_simple'|trans }} {{ item.quantite }}</small>
                                 </div>
                             </div>
                             <span class="fw-bold">{{ item.totalLigne|number_format(2, ',', ' ') }} €</span>
                         </li>
                     {% endfor %}
                     <li class="list-group-item d-flex justify-content-between bg-light">
-                        <span class="fw-bold">TOTAL À PAYER</span>
+                        <span class="fw-bold">{{ 'label_total_payer_maj'|trans }}</span>
                         <span class="fw-bold fs-5 text-primary">{{ total|number_format(2, ',', ' ') }} €</span>
                     </li>
                 </ul>
             </div>
         </div>
 
-        {# COLONNE DROITE : FORMULAIRE CHOIX #}
         <div class="col-md-5">
             <div class="card shadow border-0">
                 <div class="card-header bg-primary text-white">
-                    <h5 class="mb-0">Informations de paiement</h5>
+                    <h5 class="mb-0">{{ 'header_infos_paiement'|trans }}</h5>
                 </div>
                 <div class="card-body">
                     {{ form_start(form) }}
                         
-                        {# Si des erreurs globales existent #}
                         {{ form_errors(form) }}
 
                         <div class="mb-4">
                             <div class="d-flex justify-content-between align-items-center mb-2">
-                                <h6 class="fw-bold">Adresse de livraison</h6>
-                                <a href="{{ path('app_compte_adresse_new') }}" class="small text-decoration-none">+ Nouvelle</a>
+                                <h6 class="fw-bold">{{ 'titre_section_livraison_adresse'|trans }}</h6>
+                                <a href="{{ path('app_compte_adresse_new') }}" class="small text-decoration-none">{{ 'lien_ajouter_nouvelle'|trans }}</a>
                             </div>
                             <div class="bg-light p-3 rounded border">
                                 {{ form_widget(form.adresseLivraison) }}
@@ -66,8 +63,8 @@
 
                         <div class="mb-4">
                              <div class="d-flex justify-content-between align-items-center mb-2">
-                                <h6 class="fw-bold">Carte de paiement</h6>
-                                <a href="{{ path('app_compte_carte_new') }}" class="small text-decoration-none">+ Nouvelle</a>
+                                <h6 class="fw-bold">{{ 'titre_section_carte'|trans }}</h6>
+                                <a href="{{ path('app_compte_carte_new') }}" class="small text-decoration-none">{{ 'lien_ajouter_nouvelle'|trans }}</a>
                             </div>
                             <div class="bg-light p-3 rounded border">
                                 {{ form_widget(form.cartePaiement) }}
@@ -78,7 +75,7 @@
                         <hr>
                         
                         <button type="submit" class="btn btn-success w-100 btn-lg py-3">
-                            Confirmer et Payer {{ total|number_format(2, ',', ' ') }} €
+                            {{ 'btn_payer_montant'|trans({'%amount%': total|number_format(2, ',', ' ') ~ ' €'}) }}
                         </button>
                     
                     {{ form_end(form) }}

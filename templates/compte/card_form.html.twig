@@ -11,13 +11,12 @@
     
                 {{ form_errors(form) }}
                 
-                {# N'oubliez pas d'utiliser form_row pour voir les erreurs spécifiques #}
                 {{ form_row(form.number) }}
                 {{ form_row(form.expirationDate) }}
                 {{ form_row(form.cvv) }}
 
-                <button type="submit" class="btn btn-success mt-3">Enregistrer la carte</button>
-                <a href="{{ path('app_compte') }}" class="btn btn-secondary mt-3">Annuler</a>
+                <button type="submit" class="btn btn-success mt-3">{% trans %}btn_enregistrer_carte{% endtrans %}</button>
+                <a href="{{ path('app_compte') }}" class="btn btn-secondary mt-3">{% trans %}btn_annuler{% endtrans %}</a>
 
             {{ form_end(form) }}
         </div>

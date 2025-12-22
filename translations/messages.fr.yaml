@@ -141,3 +141,172 @@ btn_ajouter_panier: "Ajouter au panier"
 btn_continuer_achats: "Continuer mes achats"
 btn_passer_commande: "Passer la commande"
 btn_retour_boutique: "Retour à la boutique"
+
+texte_numero_carte: "Numéro de carte"
+texte_erreur_carte_vide: "Veuillez renseigner le numéro de carte."
+texte_erreur_carte_chiffre: "Le numéro ne doit contenir que des chiffres."
+texte_erreur_carte_chiffre_court: "Le numéro de carte est trop court. (minimum 16 chiffres)"
+texte_erreur_carte_chiffre_long: "Le numéro de carte est trop long. (maximum 19 chiffres)"
+texte_expiration_carte: "Expiration (MM/AA)"
+texte_erreur_expiration_vide: "Veuillez renseigner la date d'expiration."
+texte_erreur_expiration_format: "Format invalide. Utilisez le format MM/AA (ex: 12/25)."
+texte_code_carte: "Code de sécurité (CVV)"
+texte_erreur_code_vide: "Veuillez renseigner le code de sécurité."
+texte_erreur_code_format: "Le CVV doit être composé de 3 chiffres."
+
+texte_adresse_rue: "Rue et numéro"
+texte_adresse_exemple_rue: "Ex: 10 rue de la Paix"
+texte_adresse_erreur_rue_vide: "Veuillez renseigner la rue et le numéro."
+texte_adresse_code_postal: "Code postal"
+texte_adresse_erreur_code_postal_vide: "Veuillez renseigner le code postal."
+texte_adresse_exemple_code_postal: "Ex: 75000"
+texte_adresse_erreur_code_postal_court: "Le code postal est trop court."
+texte_adresse_ville: "Ville"
+texte_adresse_erreur_ville_vide: "Veuillez renseigner la ville."
+tests_adresse_exemple_ville: "Ex: Paris"
+
+texte_warning_panier_vide: "Votre panier est vide."
+texte_warning_utilisateur_invalide: "L'utilisateur connecté n'est pas valide."
+texte_warning_aucun_adresse_cb: "Veuillez ajouter une adresse et une carte de crédit avant de passer la commande."
+
+texte_ajout_adresse_valide: "Votre adresse a été ajoutée avec succès."
+titre_ajout_adresse: "Ajouter une adresse"
+
+msg_erreur_acces_adresse: "Vous n'avez pas le droit de modifier cette adresse."
+texte_modif_adresse_valide: "Adresse modifiée avec succès."
+titre_modif_adresse: "Modifier l'adresse"
+
+msg_erreur_action_non_autorisee: "Action non autorisée."
+texte_suppression_adresse_valide: "Adresse supprimée."
+
+texte_ajout_carte_valide: "Carte de paiement ajoutée."
+titre_ajout_carte: "Ajouter une carte"
+
+msg_erreur_acces_carte: "Cette carte ne vous appartient pas."
+texte_suppression_carte_valide: "Carte supprimée."
+
+btn_annuler: "Annuler"
+btn_enregistrer_carte: "Enregistrer la carte"
+
+titre_mes_adresses: "Mes Adresses"
+texte_btn_ajouter_adresse: "+ Ajouter une adresse"
+msg_confirmation_supprimer_adresse: "Supprimer cette adresse ?"
+msg_aucune_adresse: "Aucune adresse enregistrée."
+
+titre_mes_cartes: "Mes Cartes de paiement"
+texte_btn_ajouter_carte: "+ Ajouter une carte"
+label_carte_bancaire: "Carte Bancaire"
+label_expiration_carte: "Expire le :"
+msg_confirmation_supprimer_carte: "Supprimer cette carte ?"
+msg_aucune_carte: "Aucune carte enregistrée."
+
+label_email: "Adresse Email"
+label_nom: "Nom"
+label_prenom: "Prénom"
+
+erreur_mdp_vide: "Veuillez renseigner un mot de passe."
+erreur_mdp_court: "Le mot de passe doit contenir au moins {{ limit }} caractères."
+erreur_termes: "Vous devez accepter nos conditions d'utilisation."
+
+titre_infos_generales: "Informations Générales"
+titre_section_adresses: "Adresses"
+titre_section_cartes: "Cartes Bancaires"
+
+btn_supprimer_adresse: "Supprimer l'adresse"
+btn_supprimer_carte: "Supprimer la carte"
+
+checkout_titre_livraison: "Adresse de livraison"
+checkout_titre_paiement: "Moyen de paiement"
+
+checkout_format_carte: "Carte finissant par **** %number% (Exp: %date%)"
+
+header_dropdown_commandes: "Commandes"
+header_lien_mes_commandes: "Mes commandes"
+
+erreur_stock_insuffisant: 'Désolé, le stock de "%produit%" a changé. Il ne reste que %count% exemplaire(s).'
+
+admin_commande_status_invalid: "Statut invalide."
+
+status:
+    EN_ATTENTE: "En attente"
+    PAYEE: "Payée"
+    EXPEDIEE: "Expédiée"
+    LIVREE: "Livrée"
+    ANNULEE: "Annulée"
+
+admin_commande_status_updated: "Statut de la commande #%id% changé pour : %status%."
+
+admin_commande_titre_page: "Gestion des Commandes"
+admin_commande_h1: "Administration des Commandes"
+
+col_id: "ID"
+col_date: "Date"
+col_client: "Client"
+col_total: "Total"
+col_etat_actuel: "État Actuel"
+col_modif_etat: "Modifier l'état"
+col_actions: "Actions"
+
+btn_voir: "Voir"
+msg_aucune_commande_trouvee: "Aucune commande trouvée."
+
+admin_commande_detail_titre_page: "Admin - Commande #%id%"
+titre_commande_numero: "Commande #%id%"
+btn_retour_liste: "Retour à la liste"
+
+titre_section_etat: "État de la commande"
+label_etat_actuel: "Actuel :"
+label_changer_statut: "Changer le statut :"
+btn_valider_court: "OK"
+
+titre_section_client: "Client"
+label_id_client: "ID Client :"
+
+titre_section_livraison: "Livraison"
+titre_section_paiement: "Paiement"
+texte_carte_masquee: "Carte **** **** **** %number%"
+
+titre_section_contenu: "Contenu (%count% articles)"
+label_date_commande: "Date :"
+
+col_produit: "Produit"
+col_prix_unitaire: "Prix Unitaire"
+col_qte: "Qté"
+label_ref_produit: "Ref :"
+label_total_commande: "Total Commande"
+
+titre_informations: "Informations"
+label_etat: "État :"
+label_total: "Total :"
+titre_contenu_commande: "Contenu de la commande"
+label_prix_unitaire: "Prix unitaire :"
+
+titre_page_recap: "Récapitulatif de la commande"
+h1_finaliser_commande: "Finaliser ma commande"
+texte_help_recap: "Vérifiez vos articles et choisissez vos informations de livraison."
+
+header_articles_count: "Articles à commander (%count%)"
+label_qte_simple: "Quantité :"
+label_total_payer_maj: "TOTAL À PAYER"
+
+header_infos_paiement: "Informations de paiement"
+titre_section_livraison_adresse: "Adresse de livraison"
+titre_section_carte: "Carte de paiement"
+lien_ajouter_nouvelle: "+ Nouvelle"
+
+btn_payer_montant: "Confirmer et Payer %amount%"
+
+titre_commande_confirmee: "Commande confirmée"
+h1_merci_commande: "Merci pour votre commande !"
+
+msg_commande_enregistree: "Votre commande <strong>#%id%</strong> a bien été enregistrée."
+msg_email_recap: "Un récapitulatif a été envoyé à votre adresse email : <strong>%email%</strong>"
+
+btn_voir_mon_compte: "Voir mon compte"
+
+titre_page_mes_commandes: "Mes Commandes"
+msg_aucune_commande_historique: "Vous n'avez pas encore passé de commande."
+lien_commencer_achats: "Commencer mes achats"
+col_reference: "Référence"
+col_montant: "Montant"
+btn_voir_details: "Voir détails"

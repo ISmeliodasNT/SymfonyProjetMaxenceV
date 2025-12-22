@@ -10,9 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType; // Important
-use Symfony\Component\Validator\Constraints\Length;
-use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 class AdminUtilisateurType extends AbstractType
 {
@@ -41,17 +39,15 @@ class AdminUtilisateurType extends AbstractType
                 'help' => $options['is_new'] ? null : 'admin_user_password_help',
             ])
 
-            // GESTION DES ADRESSES (Collection)
             ->add('adresses', CollectionType::class, [
                 'entry_type' => AddressType::class,
                 'entry_options' => ['label' => false],
-                'allow_add' => true,    // Autorise l'ajout
-                'allow_delete' => true, // Autorise la suppression
-                'by_reference' => false, // Obligatoire pour les OneToMany
+                'allow_add' => true,  
+                'allow_delete' => true,
+                'by_reference' => false,
                 'label' => false
             ])
 
-            // GESTION DES CARTES (Collection)
             ->add('creditCards', CollectionType::class, [
                 'entry_type' => CreditCardType::class,
                 'entry_options' => ['label' => false],

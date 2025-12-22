@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Commande confirmée{% endblock %}
+{% block title %}{{ 'titre_commande_confirmee'|trans }}{% endblock %}
 
 {% block body %}
 <div class="container mt-5 text-center">
@@ -9,16 +9,17 @@
             <i class="bi bi-check-circle-fill" style="font-size: 4rem;"></i>
         </div>
         
-        <h1 class="mb-3">Merci pour votre commande !</h1>
-        <p class="lead">Votre commande <strong>#{{ commande.id }}</strong> a bien été enregistrée.</p>
+        <h1 class="mb-3">{{ 'h1_merci_commande'|trans }}</h1>
+        
+        <p class="lead">{{ 'msg_commande_enregistree'|trans({'%id%': commande.id})|raw }}</p>
         
         <hr class="my-4">
         
-        <p>Un récapitulatif a été envoyé à votre adresse email : <strong>{{ app.user.email }}</strong></p>
+        <p>{{ 'msg_email_recap'|trans({'%email%': app.user.email})|raw }}</p>
         
         <div class="d-flex justify-content-center gap-3 mt-4">
-            <a href="{{ path('app_compte') }}" class="btn btn-outline-primary">Voir mon compte</a>
-            <a href="{{ path('app_liste_produits') }}" class="btn btn-primary">Continuer mes achats</a>
+            <a href="{{ path('app_compte') }}" class="btn btn-outline-primary">{{ 'btn_voir_mon_compte'|trans }}</a>
+            <a href="{{ path('app_liste_produits') }}" class="btn btn-primary">{{ 'btn_continuer_achats'|trans }}</a>
         </div>
     </div>
 </div>

@@ -2,60 +2,59 @@
     
     <div class="row">
         <div class="col-md-6">
-            <h3>Informations Générales</h3>
+            <h3>{{ 'titre_infos_generales'|trans }}</h3>
             {{ form_row(form.email) }}
             {{ form_row(form.nom) }}
             {{ form_row(form.prenom) }}
-            {{ form_row(form.plainPassword, { label: 'Mot de passe' }) }}
+            {{ form_row(form.plainPassword, { label: 'admin_user_password'|trans }) }}
             {{ form_row(form.roles) }}
         </div>
 
         <div class="col-md-6">
-            <h3>Adresses</h3>
-            {# SYSTEME STIMULUS POUR LES ADRESSES #}
+            <h3>{{ 'titre_section_adresses'|trans }}</h3>
             <div data-controller="collection"
                  data-collection-index-value="{{ form.adresses|length }}"
                  data-collection-prototype-value="{{ form_widget(form.adresses.vars.prototype)|e('html_attr') }}"
-                 data-collection-delete-label-value="Supprimer l'adresse">
+                 data-collection-delete-label-value="{{ 'btn_supprimer_adresse'|trans }}">
                 
                 <div class="row" data-collection-target="wrapper">
                     {% for addressField in form.adresses %}
                         <div class="col-12 image-item mb-2">
                             <div class="card p-2 bg-light">
                                 {{ form_widget(addressField) }}
-                                <button type="button" class="btn btn-danger btn-sm mt-2" data-action="collection#remove">Supprimer</button>
+                                <button type="button" class="btn btn-danger btn-sm mt-2" data-action="collection#remove">{{ 'texte_btn_supprimer'|trans }}</button>
                             </div>
                         </div>
                     {% endfor %}
                 </div>
-                <button type="button" class="btn btn-sm btn-outline-primary mb-4" data-action="collection#add">+ Ajouter une adresse</button>
+                <button type="button" class="btn btn-sm btn-outline-primary mb-4" data-action="collection#add">{{ 'texte_btn_ajouter_adresse'|trans }}</button>
             </div>
 
             <hr>
 
-            <h3>Cartes Bancaires</h3>
-            {# SYSTEME STIMULUS POUR LES CARTES #}
+            <h3>{{ 'titre_section_cartes'|trans }}</h3>
             <div data-controller="collection"
                  data-collection-index-value="{{ form.creditCards|length }}"
                  data-collection-prototype-value="{{ form_widget(form.creditCards.vars.prototype)|e('html_attr') }}"
-                 data-collection-delete-label-value="Supprimer la carte">
+                 data-collection-delete-label-value="{{ 'btn_supprimer_carte'|trans }}">
                 
                 <div class="row" data-collection-target="wrapper">
                     {% for cardField in form.creditCards %}
                         <div class="col-12 image-item mb-2">
                             <div class="card p-2 bg-light">
                                 {{ form_widget(cardField) }}
-                                <button type="button" class="btn btn-danger btn-sm mt-2" data-action="collection#remove">Supprimer</button>
+                                <button type="button" class="btn btn-danger btn-sm mt-2" data-action="collection#remove">{{ 'texte_btn_supprimer'|trans }}</button>
                             </div>
                         </div>
                     {% endfor %}
                 </div>
-                <button type="button" class="btn btn-sm btn-outline-primary mb-4" data-action="collection#add">+ Ajouter une carte</button>
+                <button type="button" class="btn btn-sm btn-outline-primary mb-4" data-action="collection#add">{{ 'texte_btn_ajouter_carte'|trans }}</button>
             </div>
         </div>
     </div>
 
-    <button class="btn btn-success mt-3">{{ button_label|default('Enregistrer') }}</button>
-    <a href="{{ path('app_admin_utilisateur_index') }}" class="btn btn-secondary mt-3">Retour</a>
+    <button class="btn btn-success mt-3">{{ button_label|default('texte_btn_enregistrer'|trans) }}</button>
+    
+    <a href="{{ path('app_admin_utilisateur_index') }}" class="btn btn-secondary mt-3">{{ 'texte_btn_retour'|trans }}</a>
 
 {{ form_end(form) }}

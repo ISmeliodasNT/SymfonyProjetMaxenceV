@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 #[Route('/admin/commande')]
 #[IsGranted('ROLE_ADMIN')]
@@ -19,29 +20,32 @@ class AdminCommandeController extends AbstractController
     public function index(CommandeRepository $commandeRepository): Response
     {
         return $this->render('admin_commande/index.html.twig', [
-            // On affiche toutes les commandes, de la plus récente à la plus ancienne
             'commandes' => $commandeRepository->findBy([], ['dateCommande' => 'DESC']),
         ]);
     }
 
     #[Route('/{id}/status', name: 'app_admin_commande_status', methods: ['POST'])]
-    public function changeStatus(Commande $commande, Request $request, EntityManagerInterface $em): Response
+    public function changeStatus(Commande $commande, Request $request, EntityManagerInterface $em, TranslatorInterface $translator): Response
     {
-        // On récupère le nouveau statut depuis le formulaire
         $newStatus = $request->request->get('etat');
         
-        // Liste des statuts autorisés (sécurité)
         $allowedStatus = ['EN_ATTENTE', 'PAYEE', 'EXPEDIEE', 'LIVREE', 'ANNULEE'];
 
         if (in_array($newStatus, $allowedStatus)) {
             $commande->setEtat($newStatus);
             $em->flush();
-            $this->addFlash('success', 'Statut de la commande #' . $commande->getId() . ' mis à jour.');
+            
+            $statusTraduit = $translator->trans('status.' . $newStatus);
+
+            $this->addFlash('success', $translator->trans('admin_commande_status_updated', [
+                '%id%' => $commande->getId(),
+                '%status%' => $statusTraduit
+            ]));
+
         } else {
-            $this->addFlash('danger', 'Statut invalide.');
+            $this->addFlash('danger', $translator->trans('admin_commande_status_invalid'));
         }
 
-        // On reste sur la même page
         return $this->redirectToRoute('app_admin_commande_index');
     }
 

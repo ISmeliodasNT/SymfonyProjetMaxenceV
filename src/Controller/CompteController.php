@@ -19,7 +19,6 @@ use App\Form\CreditCardType;
 #[IsGranted('ROLE_USER')]
 class CompteController extends AbstractController
 {
-    // --- 1. VOTRE MÉTHODE EXISTANTE (PROFIL) ---
     #[Route('/', name: 'app_compte')]
     public function index(Request $request, EntityManagerInterface $entityManager, TranslatorInterface $translator): Response
     {
@@ -35,46 +34,41 @@ class CompteController extends AbstractController
 
         return $this->render('compte/index.html.twig', [
             'form' => $form->createView(),
-            'user' => $user // J'ajoute user pour pouvoir afficher la liste des adresses dans la vue
+            'user' => $user
         ]);
     }
-
-    // --- 2. NOUVELLES MÉTHODES (GESTION ADRESSES) ---
 
     #[Route('/adresse/ajouter', name: 'app_compte_adresse_new')]
     public function newAddress(Request $request, EntityManagerInterface $entityManager, TranslatorInterface $translator): Response
     {
         $address = new Address();
         
-        // On crée le formulaire AddressType
         $form = $this->createForm(AddressType::class, $address);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // IMPORTANT : On relie l'adresse à l'utilisateur connecté
             $address->setUser($this->getUser());
 
             $entityManager->persist($address);
             $entityManager->flush();
 
-            $this->addFlash('success', 'Votre adresse a été ajoutée.');
+            // Cette clé manquait dans ton YAML, je l'ai ajoutée dans la réponse
+            $this->addFlash('success', $translator->trans('texte_ajout_adresse_valide'));
             return $this->redirectToRoute('app_compte');
         }
 
-        // On affiche une vue spécifique pour le formulaire d'adresse
-        // Notez que je mets le fichier dans le dossier 'compte' pour rester cohérent
         return $this->render('compte/address_form.html.twig', [
             'form' => $form->createView(),
-            'titre' => 'Ajouter une adresse'
+            'titre' => $translator->trans('titre_ajout_adresse')
         ]);
     }
 
     #[Route('/adresse/modifier/{id}', name: 'app_compte_adresse_edit')]
-    public function editAddress(Address $address, Request $request, EntityManagerInterface $entityManager): Response
+    public function editAddress(Address $address, Request $request, EntityManagerInterface $entityManager, TranslatorInterface $translator): Response
     {
-        // SÉCURITÉ : On empêche de modifier l'adresse d'un autre utilisateur
         if ($address->getUser() !== $this->getUser()) {
-            throw $this->createAccessDeniedException("Vous n'avez pas le droit de modifier cette adresse.");
+            // Traduction de l'exception
+            throw $this->createAccessDeniedException($translator->trans('msg_erreur_acces_adresse'));
         }
 
         $form = $this->createForm(AddressType::class, $address);
@@ -83,68 +77,66 @@ class CompteController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
-            $this->addFlash('success', 'Adresse modifiée avec succès.');
+            $this->addFlash('success', $translator->trans('texte_modif_adresse_valide'));
             return $this->redirectToRoute('app_compte');
         }
 
         return $this->render('compte/address_form.html.twig', [
             'form' => $form->createView(),
-            'titre' => 'Modifier l\'adresse'
+            'titre' => $translator->trans('titre_modif_adresse')
         ]);
     }
 
     #[Route('/adresse/supprimer/{id}', name: 'app_compte_adresse_delete', methods: ['POST'])]
-    public function deleteAddress(Address $address, Request $request, EntityManagerInterface $entityManager): Response
+    public function deleteAddress(Address $address, Request $request, EntityManagerInterface $entityManager, TranslatorInterface $translator): Response
     {
-        // SÉCURITÉ
         if ($address->getUser() !== $this->getUser()) {
-            throw $this->createAccessDeniedException("Action non autorisée.");
+            throw $this->createAccessDeniedException($translator->trans('msg_erreur_action_non_autorisee'));
         }
 
         if ($this->isCsrfTokenValid('delete'.$address->getId(), $request->request->get('_token'))) {
             $entityManager->remove($address);
             $entityManager->flush();
-            $this->addFlash('success', 'Adresse supprimée.');
+            $this->addFlash('success', $translator->trans('texte_suppression_adresse_valide'));
         }
 
         return $this->redirectToRoute('app_compte');
     }
 
     #[Route('/carte/ajouter', name: 'app_compte_carte_new')]
-    public function newCard(Request $request, EntityManagerInterface $entityManager): Response
+    public function newCard(Request $request, EntityManagerInterface $entityManager, TranslatorInterface $translator): Response
     {
         $card = new CreditCard();
         $form = $this->createForm(CreditCardType::class, $card);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $card->setUser($this->getUser()); // On lie au user connecté
+            $card->setUser($this->getUser());
 
             $entityManager->persist($card);
             $entityManager->flush();
 
-            $this->addFlash('success', 'Carte de paiement ajoutée.');
+            $this->addFlash('success', $translator->trans('texte_ajout_carte_valide'));
             return $this->redirectToRoute('app_compte');
         }
 
         return $this->render('compte/card_form.html.twig', [
             'form' => $form->createView(),
-            'titre' => 'Ajouter une carte'
+            'titre' => $translator->trans('titre_ajout_carte')
         ]);
     }
 
     #[Route('/carte/supprimer/{id}', name: 'app_compte_carte_delete', methods: ['POST'])]
-    public function deleteCard(CreditCard $card, Request $request, EntityManagerInterface $entityManager): Response
+    public function deleteCard(CreditCard $card, Request $request, EntityManagerInterface $entityManager, TranslatorInterface $translator): Response
     {
-        // SÉCURITÉ : Vérifier que la carte appartient bien au user
         if ($card->getUser() !== $this->getUser()) {
-            throw $this->createAccessDeniedException("Cette carte ne vous appartient pas.");
+            throw $this->createAccessDeniedException($translator->trans('msg_erreur_acces_carte'));
         }
 
         if ($this->isCsrfTokenValid('delete'.$card->getId(), $request->request->get('_token'))) {
             $entityManager->remove($card);
             $entityManager->flush();
-            $this->addFlash('success', 'Carte supprimée.');
+            $this->addFlash('success', $translator->trans('texte_suppression_carte_valide'));
         }
 
         return $this->redirectToRoute('app_compte');
